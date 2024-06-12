@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <img
+      class="img-fluid center-block w-25"
+      src="https://static.crozdesk.com/web_app_library/providers/logos/000/013/313/original/ultatel-1669216173-logo.png?1669216173"
+      alt=""
+    />
+  </div>
+  <div class="d-flex flex-row justify-content-between">
+    <h4 class="fw-medium fs-4">Students</h4>
+    <button class="btn btn-success" (click)="addStudent()">
+      + Add Student
+    </button>
+  </div>
+  <div class="row">
+    <app-search-and-filter></app-search-and-filter>
+  </div>
+
+  <div class="row">
+    <app-students></app-students>
+  </div>
+</div>

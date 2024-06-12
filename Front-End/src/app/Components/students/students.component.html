@@ -1,0 +1,43 @@
+<div *ngIf="students.length > 0; else nostudents">
+  <p-table
+    [value]="students"
+    [rows]="10"
+    [paginator]="true"
+    [paginatorPosition]="'both'"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Email</th>
+        <th>Country</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-student>
+      <tr>
+        <td>
+          <button class="btn" (click)="editStudent(student)">
+            <i class="bi bi-pencil"></i>
+          </button>
+        </td>
+        <td>{{ student.name }}</td>
+        <td>{{ student.age }}</td>
+        <td>{{ student.gender }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.country }}</td>
+        <td>
+          <button class="btn" (click)="deleteStudent(student.id)">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<ng-template #nostudents>
+  <p>No students yet.</p>
+</ng-template>

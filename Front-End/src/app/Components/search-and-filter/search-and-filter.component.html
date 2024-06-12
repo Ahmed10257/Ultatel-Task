@@ -1,0 +1,64 @@
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-body">
+      <form>
+        <div class="form-row d-flex">
+          <div class="d-flex flex-column w-50 me-4">
+            <div class="form-group mb-4">
+              <label for="name">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                placeholder="Name"
+              />
+            </div>
+            <div class="form-group">
+              <label for="country">Country</label>
+              <select id="country" class="form-control">
+                <option selected>Choose...</option>
+                <option>Country 1</option>
+                <option>Country 2</option>
+                <option>Country 3</option>
+              </select>
+            </div>
+          </div>
+          <div class="d-flex flex-column w-50">
+            <div class="form-group mb-4">
+              <label for="ageFrom">Age</label>
+              <div class="d-flex">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="ageFrom"
+                  placeholder="From"
+                />
+                <span class="mx-2">to</span>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="ageTo"
+                  placeholder="To"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="gender">Gender</label>
+              <select id="gender" class="form-control">
+                <option selected>Choose...</option>
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="form-row d-flex justify-content-end mt-3">
+          <button type="submit" class="btn btn-primary me-2 w-25">
+            Search
+          </button>
+          <button type="reset" class="btn btn-secondary w-25">Reset</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
