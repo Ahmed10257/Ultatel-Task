@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+import { Optional, Options } from "@nestjs/common";
 import { Column, PrimaryGeneratedColumn } from "typeorm";
 import { Entity } from "typeorm";
 
@@ -10,7 +10,7 @@ export class User {
     @Column({ length: 100 })
     fullName: string;
 
-    @Column()
+    @Column({ unique: true })
     email: string;
 
     @Column()

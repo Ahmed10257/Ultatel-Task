@@ -6,12 +6,13 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-create-student-dialog',
   standalone: true,
-  imports: [ReactiveFormsModule, HttpClientModule],
+  imports: [ReactiveFormsModule, HttpClientModule, CommonModule],
   templateUrl: './create-student-dialog.component.html',
   styleUrl: './create-student-dialog.component.css',
   providers: [StudentsService]
@@ -25,27 +26,51 @@ export class CreateStudentDialogComponent {
     private router: Router,
   ) { }
 
+  nameValid: boolean = true;
+  birthDateValid: boolean = true;
+  emailValid: boolean = true;
+  genderValid: boolean = true;
+  countryValid: boolean = true;
+
+  student: any;
+
   AddStudentForm = new FormGroup({
-    name: new FormControl('', Validators.required),
-    age: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.required),
+    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    birthDate: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
     gender: new FormControl('', Validators.required),
     country: new FormControl('', Validators.required),
   });
 
-  student: { name: string, age: number, email: string } = { name: '', age: 0, email: '' };
-
   onSubmit() {
-    if (this.AddStudentForm.valid) {
-      this.student.name = this.AddStudentForm.value.name ?? '';
+    this.nameValid = this.AddStudentForm.controls['name'].valid;
+    this.birthDateValid = this.AddStudentForm.controls['birthDate'].valid;
+    this.emailValid = this.AddStudentForm.controls['email'].valid;
+    this.genderValid = this.AddStudentForm.controls['gender'].valid;
+    this.countryValid = this.AddStudentForm.controls['country'].valid;
+    console.log(this.nameValid, this.birthDateValid, this.emailValid, this.genderValid, this.countryValid);
 
+
+    if (
+      this.nameValid &&
+      this.birthDateValid &&
+      this.emailValid &&
+      this.genderValid &&
+      this.countryValid
+    ) {
       const currentDate = new Date();
-      const birthDate = new Date(this.AddStudentForm.value.age ?? '');
+      const birthDate = new Date(this.AddStudentForm.value.birthDate ?? '');
       const ageInMilliseconds = currentDate.getTime() - birthDate.getTime();
       const ageInYears = Math.floor(ageInMilliseconds / (1000 * 60 * 60 * 24 * 365));
 
-      this.student.age = ageInYears;
-      this.student.email = this.AddStudentForm.value.email ?? '';
+      this.student = {
+        name: this.AddStudentForm.controls['name'].value,
+        age: ageInYears,
+        email: this.AddStudentForm.controls['email'].value,
+        gender: this.AddStudentForm.controls['gender'].value,
+        country: this.AddStudentForm.controls['country'].value,
+      };
+
       this.studentsService.createStudent(this.AddStudentForm.value).subscribe((date) => {
         console.log(date);
         this.dialog.close();

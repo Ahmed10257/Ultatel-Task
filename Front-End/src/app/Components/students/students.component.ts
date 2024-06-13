@@ -6,22 +6,27 @@ import { TableModule } from 'primeng/table';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { EditStudentDialogComponent } from '../edit-student-dialog/edit-student-dialog.component';
+import { HttpClient } from '@angular/common/http';
+import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-students',
   standalone: true,
-  imports: [CommonModule, TableModule, FontAwesomeModule],
+  imports: [CommonModule, TableModule, FontAwesomeModule, ReactiveFormsModule, FormsModule],
   templateUrl: './students.component.html',
   styleUrl: './students.component.css',
   providers: [StudentsService]
 })
 
 export class StudentsComponent implements OnInit {
-  constructor(private studentService: StudentsService, private router: Router,) { }
+  constructor(private studentService: StudentsService, private dialog: MatDialog, private router: Router,
+    private http: HttpClient) { }
 
   students: any;
-
-
+  student: any;
+  rows: number = 10;
 
   ngOnInit() {
     this.studentService.getStudents().subscribe({
@@ -36,9 +41,16 @@ export class StudentsComponent implements OnInit {
     });
   }
 
-  editStudent(student: any) {
-    console.log('Edit Student: ', student);
-
+  editStudent(id: any) {
+    this.studentService.getStudentById(id).subscribe((data) => {
+      const student = data;
+      const dialog = this.dialog.open(EditStudentDialogComponent, {
+        width: '500px',
+        data: {
+          studentFromHome: student,
+        },
+      });
+    });
   }
 
   deleteStudent(id: any) {
@@ -63,6 +75,7 @@ export class StudentsComponent implements OnInit {
     });
   }
 
-
-
+  onRowsChange() {
+    console.log("f");
+  }
 }

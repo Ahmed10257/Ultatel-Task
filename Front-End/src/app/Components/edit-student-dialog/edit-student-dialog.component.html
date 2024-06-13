@@ -6,9 +6,9 @@
       alt="Ultatel Logo"
     />
   </div>
-  <h4 class="title">Add New Student</h4>
+  <h4 class="title">Edit Student</h4>
   <div class="form-container">
-    <form [formGroup]="AddStudentForm">
+    <form [formGroup]="EditStudentForm">
       <div class="form-row">
         <div class="form-column">
           <div>
@@ -19,48 +19,59 @@
               class="form-control"
               id="name"
               placeholder="Enter name"
+              value="{{ student.name }}"
             />
 
-            <div class="alert alert-danger" *ngIf="!nameValid">
+            <!-- <div class="alert alert-danger" *ngIf="!nameValid">
               Name is Invalid
             </div>
 
             <div class="alert alert-danger" *ngIf="student.name == ''">
               Name is Required
-            </div>
+            </div> -->
           </div>
           <p>{{ genderValid }}</p>
           <div>
             <label for="gender">Gender</label>
-            <select class="form-control" id="gender" formControlName="gender">
+            <select
+              class="form-control"
+              id="gender"
+              formControlName="gender"
+              value="{{ student.gender }}"
+            >
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
 
-            <div
+            <!-- <div
               class="alert alert-danger"
               *ngIf="
-                AddStudentForm.get('gender')?.invalid &&
-                AddStudentForm.get('gender')?.touched
+                EditStudentForm.get('gender')?.invalid &&
+                EditStudentForm.get('gender')?.touched
               "
             >
               Gender is Required
-            </div>
+            </div> -->
           </div>
           <div>
             <label for="country">Country</label>
-            <select class="form-control" id="country" formControlName="country">
+            <select
+              class="form-control"
+              id="country"
+              formControlName="country"
+              value="{{ student.country }}"
+            >
               <option value="usa">USA</option>
               <option value="uk">UK</option>
               <option value="canada">Canada</option>
             </select>
 
-            <div
+            <!-- <div
               class="alert alert-danger"
               *ngIf="countryValid || student.country == ''"
             >
               Country is Required
-            </div>
+            </div> -->
           </div>
           <div>
             <label for="email">Email</label>
@@ -69,6 +80,7 @@
               class="form-control"
               id="email"
               placeholder="Enter email"
+              value="{{ student.email }}"
             />
             <!-- @if (student.email=='') {
             <div class="alert alert-danger">Email is Required</div>
@@ -92,7 +104,7 @@
             } -->
           </div>
           <button class="btn btn-success" (click)="onSubmit()">
-            Add Student
+            Update Student
           </button>
         </div>
       </div>

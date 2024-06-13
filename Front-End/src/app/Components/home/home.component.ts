@@ -5,10 +5,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CreateStudentDialogComponent } from '../create-student-dialog/create-student-dialog.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { NgSelectModule } from '@ng-select/ng-select';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [StudentsComponent, SearchAndFilterComponent, ReactiveFormsModule],
+  imports: [StudentsComponent, SearchAndFilterComponent, ReactiveFormsModule, NgSelectModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 

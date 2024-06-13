@@ -1,7 +1,22 @@
 <div *ngIf="students.length > 0; else nostudents">
+  <div class="d-flex flex-row align-items-center mt-3">
+    <label for="rows">Show Entries</label>
+    <select
+      [(ngModel)]="rows"
+      id="rows"
+      class="form-control w-auto ms-3"
+      (change)="onRowsChange()"
+    >
+      <option>10</option>
+      <option>20</option>
+      <option>30</option>
+      <option>40</option>
+      <option>50</option>
+    </select>
+  </div>
   <p-table
     [value]="students"
-    [rows]="10"
+    [rows]="rows"
     [paginator]="true"
     [paginatorPosition]="'both'"
   >
@@ -19,11 +34,11 @@
     <ng-template pTemplate="body" let-student>
       <tr>
         <td>
-          <button class="btn" (click)="editStudent(student)">
+          <button class="btn" (click)="editStudent(student.id)">
             <i class="bi bi-pencil"></i>
           </button>
         </td>
-        <td>{{ student.name }}</td>
+        <td>{{ student.firstName + " " + student.lastName }}</td>
         <td>{{ student.age }}</td>
         <td>{{ student.gender }}</td>
         <td>{{ student.email }}</td>
