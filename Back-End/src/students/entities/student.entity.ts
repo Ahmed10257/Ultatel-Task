@@ -1,9 +1,6 @@
-/* eslint-disable prettier/prettier */
 import { Column, PrimaryGeneratedColumn } from "typeorm";
 import { Entity } from "typeorm";
 
-
-/* eslint-disable prettier/prettier */
 @Entity()
 export class Student {
     @PrimaryGeneratedColumn()
@@ -15,6 +12,9 @@ export class Student {
     @Column({ length: 100 })
     lastName: string;
 
+    @Column({ length: 100 })
+    email: string;
+
     @Column({
         type: "enum",
         enum: ["male", "female"],
@@ -23,7 +23,7 @@ export class Student {
     gender: string;
 
     @Column()
-    birth_date: Date;
+    birthDate: Date;
 
     @Column()
     country: string;

@@ -1,4 +1,4 @@
-import { StudentsService } from './../../Services/students.service';
+import { StudentsService } from './../../Services/Students/students.service';
 import { Component } from '@angular/core';
 import { FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -26,7 +26,8 @@ export class CreateStudentDialogComponent {
     private router: Router,
   ) { }
 
-  nameValid: boolean = true;
+  firstNameValid: boolean = true;
+  lastNameValid: boolean = true;
   birthDateValid: boolean = true;
   emailValid: boolean = true;
   genderValid: boolean = true;
@@ -35,43 +36,45 @@ export class CreateStudentDialogComponent {
   student: any;
 
   AddStudentForm = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    firstName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    lastName: new FormControl('', [Validators.required, Validators.minLength(3)]),
     birthDate: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     gender: new FormControl('', Validators.required),
-    country: new FormControl('', Validators.required),
+    country: new FormControl('', [Validators.required]),
   });
 
   onSubmit() {
-    this.nameValid = this.AddStudentForm.controls['name'].valid;
+
+    this.firstNameValid = this.AddStudentForm.controls['firstName'].valid;
+    this.lastNameValid = this.AddStudentForm.controls['lastName'].valid;
     this.birthDateValid = this.AddStudentForm.controls['birthDate'].valid;
     this.emailValid = this.AddStudentForm.controls['email'].valid;
     this.genderValid = this.AddStudentForm.controls['gender'].valid;
     this.countryValid = this.AddStudentForm.controls['country'].valid;
-    console.log(this.nameValid, this.birthDateValid, this.emailValid, this.genderValid, this.countryValid);
+
+    console.log(this.AddStudentForm.controls['birthDate'].value);
 
 
     if (
-      this.nameValid &&
+      this.firstNameValid &&
+      this.lastNameValid &&
       this.birthDateValid &&
       this.emailValid &&
       this.genderValid &&
       this.countryValid
     ) {
-      const currentDate = new Date();
-      const birthDate = new Date(this.AddStudentForm.value.birthDate ?? '');
-      const ageInMilliseconds = currentDate.getTime() - birthDate.getTime();
-      const ageInYears = Math.floor(ageInMilliseconds / (1000 * 60 * 60 * 24 * 365));
-
       this.student = {
-        name: this.AddStudentForm.controls['name'].value,
-        age: ageInYears,
+        firstName: this.AddStudentForm.controls['firstName'].value,
+        lastName: this.AddStudentForm.controls['lastName'].value,
+        birthDate: this.AddStudentForm.controls['birthDate'].value,
         email: this.AddStudentForm.controls['email'].value,
         gender: this.AddStudentForm.controls['gender'].value,
         country: this.AddStudentForm.controls['country'].value,
       };
+      console.log(this.student);
 
-      this.studentsService.createStudent(this.AddStudentForm.value).subscribe((date) => {
+      this.studentsService.createStudent(this.student).subscribe((date) => {
         console.log(date);
         this.dialog.close();
         Swal.fire({

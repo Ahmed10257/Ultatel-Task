@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { StudentsService } from '../../Services/students.service';
+import { StudentsService } from '../../Services/Students/students.service';
 import { CommonModule } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
@@ -39,6 +39,17 @@ export class StudentsComponent implements OnInit {
         console.error('There was an error!', error);
       }
     });
+  }
+
+  calculateAge(birthDate: any) {
+    const today = new Date();
+    const birthDate1 = new Date(birthDate);
+    let age = today.getFullYear() - birthDate1.getFullYear();
+    const m = today.getMonth() - birthDate1.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate1.getDate())) {
+      age--;
+    }
+    return age;
   }
 
   editStudent(id: any) {

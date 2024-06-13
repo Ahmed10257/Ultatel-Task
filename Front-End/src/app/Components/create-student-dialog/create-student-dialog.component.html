@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container p-5">
   <div class="row">
     <img
       class="logo w-25"
@@ -6,78 +6,90 @@
       alt="Ultatel Logo"
     />
   </div>
-  <h4 class="title">Add New Student</h4>
+  <h4 class="title fs-3 fw-medium mb-3">Add New Student</h4>
   <div class="form-container">
     <form [formGroup]="AddStudentForm">
       <div class="form-row">
         <div class="form-column">
-          <div>
-            <label for="name">Name</label>
+          <div class="mb-4">
+            <label for="firstname" class="fs-5 fw-medium text-muted mb-2"
+              >First Name</label
+            >
             <input
-              formControlName="name"
+              formControlName="firstName"
               type="text"
               class="form-control"
-              id="name"
+              id="firstname"
               placeholder="Enter name"
             />
-
-            <div class="alert alert-danger" *ngIf="!nameValid">
-              Name is Invalid
-            </div>
-
-            <div class="alert alert-danger" *ngIf="student.name == ''">
-              Name is Required
-            </div>
+            @if (!firstNameValid) {
+            <div class="alert alert-danger fw-medium h6">Name is Invalid</div>
+            }
           </div>
-          <p>{{ genderValid }}</p>
-          <div>
-            <label for="gender">Gender</label>
+          <div class="mb-4">
+            <label for="lastname" class="fs-5 fw-medium text-muted mb-2"
+              >Last Name</label
+            >
+            <input
+              formControlName="lastName"
+              type="text"
+              class="form-control"
+              id="lastname"
+              placeholder="Enter name"
+            />
+            @if (!lastNameValid) {
+            <div class="alert alert-danger fw-medium h6">Name is Invalid</div>
+            }
+          </div>
+          <div class="mb-4">
+            <label for="email" class="fs-5 fw-medium text-muted mb-2"
+              >Email</label
+            >
+            <input
+              type="email"
+              formControlName="email"
+              class="form-control"
+              id="email"
+              placeholder="Enter email"
+            />
+            @if (!emailValid) {
+            <div class="alert alert-danger fw-medium h6">Email is Invalid</div>
+            }
+          </div>
+          <div class="mb-4">
+            <label for="gender" class="fs-5 fw-medium text-muted mb-2"
+              >Gender</label
+            >
             <select class="form-control" id="gender" formControlName="gender">
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
-
-            <div
-              class="alert alert-danger"
-              *ngIf="
-                AddStudentForm.get('gender')?.invalid &&
-                AddStudentForm.get('gender')?.touched
-              "
-            >
+            @if (!genderValid) {
+            <div class="alert alert-danger fw-medium h6">
               Gender is Required
             </div>
+            }
           </div>
-          <div>
-            <label for="country">Country</label>
+          <div class="mb-4">
+            <label for="country" class="fs-5 fw-medium text-muted mb-2"
+              >Country</label
+            >
             <select class="form-control" id="country" formControlName="country">
               <option value="usa">USA</option>
               <option value="uk">UK</option>
               <option value="canada">Canada</option>
             </select>
-
-            <div
-              class="alert alert-danger"
-              *ngIf="countryValid || student.country == ''"
-            >
+            @if (!countryValid) {
+            <div class="alert alert-danger fw-medium h6">
               Country is Required
             </div>
+            }
           </div>
-          <div>
-            <label for="email">Email</label>
-            <input
-              type="email"
-              class="form-control"
-              id="email"
-              placeholder="Enter email"
-            />
-            <!-- @if (student.email=='') {
-            <div class="alert alert-danger">Email is Required</div>
-            } @if (!emailValid) {
-            <div class="alert alert-danger">Email is Invalid</div>
-            } -->
-          </div>
-          <div class="form-group">
-            <label for="birthdate">Birthdate</label>
+
+          <div class="form-group mb-4">
+            <label for="birthdate" class="fs-5 fw-medium text-muted mb-2"
+              >Birthdate</label
+            >
             <input
               formControlName="birthDate"
               type="date"
@@ -85,15 +97,20 @@
               id="birthdate"
               placeholder="Enter birthdate"
             />
-            <!-- @if (student.birthDate=='') {
-            <div class="alert alert-danger">Birthdate is Required</div>
-            } @if (!birthDateValid) {
-            <div class="alert alert-danger">Birthdate is Invalid</div>
-            } -->
+            @if (!birthDateValid) {
+            <div class="alert alert-danger fw-medium h6">
+              Birthdate is Required
+            </div>
+            }
           </div>
-          <button class="btn btn-success" (click)="onSubmit()">
-            Add Student
-          </button>
+          <div class="d-flex justify-content-center">
+            <button
+              class="btn btn-success fs-5 w-50 text-center"
+              (click)="onSubmit()"
+            >
+              Add Student
+            </button>
+          </div>
         </div>
       </div>
     </form>

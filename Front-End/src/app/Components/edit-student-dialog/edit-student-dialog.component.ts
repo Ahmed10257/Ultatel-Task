@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { StudentsService } from '../../Services/students.service';
+import { StudentsService } from '../../Services/Students/students.service';
 import { OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class EditStudentDialogComponent implements OnInit {
   constructor(private studentsService: StudentsService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialogRef<any>,
     private router: Router) { this.student = this.data.studentFromHome; }
 
-  nameValid: boolean = true;
+  firstNameValid: boolean = true;
+  lastNameValid: boolean = true;
   birthDateValid: boolean = true;
   emailValid: boolean = true;
   genderValid: boolean = true;
@@ -29,17 +31,12 @@ export class EditStudentDialogComponent implements OnInit {
 
   student = this.data.studentFromHome;
 
-  EditStudentForm = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    birthDate: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    gender: new FormControl('', Validators.required),
-    country: new FormControl('', Validators.required),
-  });
+  EditStudentForm: any;
 
   ngOnInit() {
     this.EditStudentForm = new FormGroup({
-      name: new FormControl(this.student.name, [Validators.required, Validators.minLength(3)]),
+      firstName: new FormControl(this.student.firstName, [Validators.required, Validators.minLength(3)]),
+      lastName: new FormControl(this.student.lastName, [Validators.required, Validators.minLength(3)]),
       birthDate: new FormControl(this.student.birthDate, Validators.required),
       email: new FormControl(this.student.email, [Validators.required, Validators.email]),
       gender: new FormControl(this.student.gender, Validators.required),
@@ -48,21 +45,58 @@ export class EditStudentDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    this.nameValid = this.student.name.valid;
-    this.birthDateValid = this.student.birthDate.valid;
-    this.emailValid = this.student.email.valid;
-    this.genderValid = this.student.gender.valid;
-    this.countryValid = this.student.country.valid;
+    this.firstNameValid = this.EditStudentForm.controls['firstName'].valid;
+    this.lastNameValid = this.EditStudentForm.controls['lastName'].valid;
+    this.birthDateValid = this.EditStudentForm.controls['birthDate'].valid;
+    this.emailValid = this.EditStudentForm.controls['email'].valid;
+    this.genderValid = this.EditStudentForm.controls['gender'].valid;
+    this.countryValid = this.EditStudentForm.controls['country'].valid;
 
-    console.log("XXXX");
+    if (
+      this.firstNameValid &&
+      this.lastNameValid &&
+      this.birthDateValid &&
+      this.emailValid &&
+      this.genderValid &&
+      this.countryValid
+    ) {
+      this.student = {
+        id: this.student.id,
+        firstName: this.EditStudentForm.controls['firstName'].value,
+        lastName: this.EditStudentForm.controls['lastName'].value,
+        birthDate: this.EditStudentForm.controls['birthDate'].value,
+        email: this.EditStudentForm.controls['email'].value,
+        gender: this.EditStudentForm.controls['gender'].value,
+        country: this.EditStudentForm.controls['country'].value,
+      };
+      console.log(this.student);
 
-    console.log(this.student);
+      this.studentsService.updateStudent(this.student).subscribe((date) => {
+        console.log(date);
+        this.dialog.close();
+        Swal.fire({
+          icon: 'success',
+          title: 'Student Updated Successfully',
+        }).then(() => {
+          this.router
+            .navigateByUrl('/', { skipLocationChange: true })
+            .then(() => {
+              this.router.navigate(['/home']);
+            });
+        });
 
-  }
+      }, (error) => {
+        console.error('There was an error!', error);
+      }
+      );
 
-  updateStudent() {
-    this.studentsService.updateStudent(this.student).subscribe((data) => {
-      console.log(data);
-    });
+    } else {
+      console.log(this.EditStudentForm.value);
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Please fill all the fields',
+      });
+    }
   }
 }
