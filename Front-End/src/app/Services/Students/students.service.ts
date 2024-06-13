@@ -30,11 +30,4 @@ export class StudentsService {
     return this.http.delete(`${this.API_URL}/${id}`);
   }
 
-  search() {
-    console.log('search');
-  }
-
-  reset() {
-    console.log('reset');
-  }
 }

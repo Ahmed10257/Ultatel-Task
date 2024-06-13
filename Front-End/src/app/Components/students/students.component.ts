@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges } from '@angular/core';
 import { StudentsService } from '../../Services/Students/students.service';
 import { CommonModule } from '@angular/common';
 import { OnInit } from '@angular/core';
@@ -10,6 +10,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { EditStudentDialogComponent } from '../edit-student-dialog/edit-student-dialog.component';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
+import { Input } from '@angular/core';
+
 
 @Component({
   selector: 'app-students',
@@ -20,7 +22,7 @@ import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
   providers: [StudentsService]
 })
 
-export class StudentsComponent implements OnInit {
+export class StudentsComponent {
   constructor(private studentService: StudentsService, private dialog: MatDialog, private router: Router,
     private http: HttpClient) { }
 
@@ -28,18 +30,7 @@ export class StudentsComponent implements OnInit {
   student: any;
   rows: number = 10;
 
-  ngOnInit() {
-    this.studentService.getStudents().subscribe({
-      next: (data) => {
-        this.students = data;
-        console.log('Data: ', data);
-
-      },
-      error: (error) => {
-        console.error('There was an error!', error);
-      }
-    });
-  }
+  @Input() studentsFromHome: any;
 
   calculateAge(birthDate: any) {
     const today = new Date();
@@ -51,6 +42,8 @@ export class StudentsComponent implements OnInit {
     }
     return age;
   }
+
+
 
   editStudent(id: any) {
     this.studentService.getStudentById(id).subscribe((data) => {
@@ -122,7 +115,17 @@ export class StudentsComponent implements OnInit {
 
 
   sortByGender() {
+    this.students.sort((a: any, b: any) => {
+      if (a.gender < b.gender) {
+        return -1;
+      } else if (a.gender > b.gender) {
+        return 1;
+      } else {
+        return 0;
+      }
 
+    }
+    );
   }
 
   sortByEmail() {

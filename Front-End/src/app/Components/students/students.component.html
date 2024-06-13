@@ -1,6 +1,6 @@
-<div *ngIf="students.length > 0; else nostudents">
+<div *ngIf="studentsFromHome.length > 0; else nostudents">
   <div class="d-flex flex-row align-items-center mt-3">
-    <label for="rows">Show Entries</label>
+    <label for="rows" class="fs-5 fw-medium">Show Entries</label>
     <select
       [(ngModel)]="rows"
       id="rows"
@@ -15,7 +15,7 @@
     </select>
   </div>
   <p-table
-    [value]="students"
+    [value]="studentsFromHome"
     [rows]="rows"
     [paginator]="true"
     [paginatorPosition]="'both'"
@@ -59,7 +59,7 @@
           </button>
         </td>
         <td>{{ student.firstName + " " + student.lastName }}</td>
-        <td>{{ calculateAge(student.birthDate) }}</td>
+        <td>{{ calculateAge(student.birthDate) }} Years</td>
         <td>{{ student.gender }}</td>
         <td>{{ student.email }}</td>
         <td>{{ student.country }}</td>
@@ -71,6 +71,10 @@
       </tr>
     </ng-template>
   </p-table>
+  <div class="fs-5 fw-medium mt-2">
+    Showing {{ studentsFromHome.length }} of
+    {{ studentsFromHome.length }} entries
+  </div>
 </div>
 
 <ng-template #nostudents>

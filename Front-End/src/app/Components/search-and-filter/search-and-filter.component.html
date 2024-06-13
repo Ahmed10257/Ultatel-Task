@@ -1,7 +1,7 @@
 <div class="container mt-5">
   <div class="card rounded-4">
     <div class="card-body">
-      <form>
+      <form [formGroup]="searchForm">
         <div class="form-row d-flex">
           <div class="d-flex flex-column w-50 m-4">
             <div class="form-group mb-4">
@@ -10,6 +10,7 @@
               >
               <input
                 type="text"
+                formControlName="searchByName"
                 class="form-control fs-4"
                 id="name"
                 placeholder="Name"
@@ -19,11 +20,15 @@
               <label for="country" class="fs-4 fw-medium text-muted mb-4"
                 >Country</label
               >
-              <select id="country" class="form-control fs-4">
+              <select
+                id="country"
+                class="form-control fs-4"
+                formControlName="searchByCountry"
+              >
                 <option selected>Choose...</option>
-                <option>Country 1</option>
-                <option>Country 2</option>
-                <option>Country 3</option>
+                <option>usa</option>
+                <option>uk</option>
+                <option>canada</option>
               </select>
             </div>
           </div>
@@ -35,6 +40,7 @@
               <div class="d-flex">
                 <input
                   type="number"
+                  formControlName="searchByAge"
                   class="form-control fs-4 me-4"
                   id="ageFrom"
                   placeholder="From"
@@ -52,7 +58,11 @@
               <label for="gender" class="fs-4 fw-medium text-muted mb-4"
                 >Gender</label
               >
-              <select id="gender" class="form-control fs-4">
+              <select
+                id="gender"
+                class="form-control fs-4"
+                formControlName="searchByGender"
+              >
                 <option selected>Choose...</option>
                 <option>Male</option>
                 <option>Female</option>
@@ -64,12 +74,14 @@
           <button
             type="submit"
             class="btn btn-primary me-4 custom-width fs-5 rounded-4"
+            (click)="search()"
           >
             Search
           </button>
           <button
             type="reset"
             class="btn btn-secondary ms-4 custom-width fs-5 rounded-4"
+            (click)="reset()"
           >
             Reset
           </button>

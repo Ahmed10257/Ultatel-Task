@@ -37,11 +37,20 @@ export class EditStudentDialogComponent implements OnInit {
     this.EditStudentForm = new FormGroup({
       firstName: new FormControl(this.student.firstName, [Validators.required, Validators.minLength(3)]),
       lastName: new FormControl(this.student.lastName, [Validators.required, Validators.minLength(3)]),
-      birthDate: new FormControl(this.student.birthDate, Validators.required),
+      birthDate: new FormControl(this.formatDate(this.student.birthDate), Validators.required),
       email: new FormControl(this.student.email, [Validators.required, Validators.email]),
       gender: new FormControl(this.student.gender, Validators.required),
       country: new FormControl(this.student.country, Validators.required),
     });
+  }
+
+  formatDate(date: Date): string {
+    const d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    return [year, month.padStart(2, '0'), day.padStart(2, '0')].join('-');
   }
 
   onSubmit() {
@@ -94,7 +103,7 @@ export class EditStudentDialogComponent implements OnInit {
       console.log(this.EditStudentForm.value);
 
       Swal.fire({
-        icon: 'error',
+        icon: 'warning',
         title: 'Please fill all the fields',
       });
     }

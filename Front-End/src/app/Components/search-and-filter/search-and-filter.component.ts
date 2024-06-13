@@ -4,6 +4,8 @@ import { StudentsService } from '../../Services/Students/students.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Output, EventEmitter } from '@angular/core';
+import { OnInit, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-search-and-filter',
@@ -13,7 +15,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   styleUrls: ['./search-and-filter.component.css'],
   providers: [StudentsService]
 })
-export class SearchAndFilterComponent {
+export class SearchAndFilterComponent implements OnInit {
   constructor(private studentService: StudentsService, private http: HttpClient) { }
 
   searchForm = new FormGroup({
@@ -23,12 +25,68 @@ export class SearchAndFilterComponent {
     searchByCountry: new FormControl(''),
   });
 
+  students: any;
+
+  @Output() inputEvent = new EventEmitter<any>();
+
+  ngOnInit() {
+    this.studentService.getStudents().subscribe((data: any) => {
+      this.students = data;
+      console.log(this.students);
+      this.sendStudents();
+
+    },
+      (error: any) => {
+        console.error(error);
+      });
+    this.sendStudents();
+    console.log(this.students);
+
+  }
+
+  sendStudents() {
+    this.inputEvent.emit(this.students);
+    console.log(this.students);
+  }
+
+
+
   search() {
-    this.studentService.search();
+    const searchByName = this.searchForm.controls.searchByName.value;
+    const searchByAge = this.searchForm.controls.searchByAge.value;
+    const searchByGender = this.searchForm.controls.searchByGender.value;
+    const searchByCountry = this.searchForm.controls.searchByCountry.value;
+
+    this.students = this.students.filter((student: any) => {
+      let match = true;
+      if (searchByName && student.firstName.toLowerCase().indexOf(searchByName.toLowerCase()) === -1) {
+        match = false;
+      }
+      if (searchByAge && student.age !== searchByAge) {
+        match = false;
+      }
+      if (searchByGender && student.gender !== searchByGender) {
+        match = false;
+      }
+      if (searchByCountry && student.country.toLowerCase() !== searchByCountry.toLowerCase()) {
+        match = false;
+      }
+      console.log(match);
+
+      return match;
+    });
+    console.log(this.students);
+
+    this.sendStudents();
   }
 
   reset() {
-    this.studentService.reset();
+    this.studentService.getStudents().subscribe((data: any) => {
+      this.students = data;
+      this.sendStudents();
+    },
+      (error: any) => {
+        console.error(error);
+      });
   }
-
 }

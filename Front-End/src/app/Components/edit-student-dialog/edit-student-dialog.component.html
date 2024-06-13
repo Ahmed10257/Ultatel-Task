@@ -13,14 +13,13 @@
         <div class="form-column">
           <div class="mb-4">
             <label for="firstname" class="fs-5 fw-medium text-muted mb-2"
-              >First Name</label
+              >First Name*</label
             >
             <input
               formControlName="firstName"
               type="text"
               class="form-control"
               id="firstname"
-              value="{{ student.firstName }}"
             />
             @if (!firstNameValid) {
             <div class="alert alert-danger fw-medium h6">Name is Invalid</div>
@@ -28,14 +27,13 @@
           </div>
           <div class="mb-4">
             <label for="lastname" class="fs-5 fw-medium text-muted mb-2"
-              >Last Name</label
+              >Last Name*</label
             >
             <input
               formControlName="lastName"
               type="text"
               class="form-control"
               id="lastname"
-              value="{{ student.lastName }}"
             />
             @if (!lastNameValid) {
             <div class="alert alert-danger fw-medium h6">Name is Invalid</div>
@@ -43,14 +41,13 @@
           </div>
           <div class="mb-4">
             <label for="email" class="fs-5 fw-medium text-muted mb-2"
-              >Email</label
+              >Email*</label
             >
             <input
               type="email"
               formControlName="email"
               class="form-control"
               id="email"
-              placeholder="Enter email"
             />
             @if (!emailValid) {
             <div class="alert alert-danger fw-medium h6">Email is Invalid</div>
@@ -58,7 +55,7 @@
           </div>
           <div class="mb-4">
             <label for="gender" class="fs-5 fw-medium text-muted mb-2"
-              >Gender</label
+              >Gender*</label
             >
             <select class="form-control" id="gender" formControlName="gender">
               <option value="male">Male</option>
@@ -72,7 +69,7 @@
           </div>
           <div class="mb-4">
             <label for="country" class="fs-5 fw-medium text-muted mb-2"
-              >Country</label
+              >Country*</label
             >
             <select class="form-control" id="country" formControlName="country">
               <option value="usa">USA</option>
@@ -88,14 +85,13 @@
 
           <div class="form-group mb-4">
             <label for="birthdate" class="fs-5 fw-medium text-muted mb-2"
-              >Birthdate</label
+              >Birthdate*</label
             >
             <input
               formControlName="birthDate"
               type="date"
               class="form-control"
               id="birthdate"
-              value="{{ student.birthDate }}"
             />
             @if (!birthDateValid) {
             <div class="alert alert-danger fw-medium h6">

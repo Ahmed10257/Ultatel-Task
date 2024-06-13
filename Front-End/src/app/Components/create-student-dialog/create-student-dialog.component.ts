@@ -97,7 +97,7 @@ export class CreateStudentDialogComponent {
       console.log(this.AddStudentForm.value);
 
       Swal.fire({
-        icon: 'error',
+        icon: 'warning',
         title: 'Please fill all the fields',
       });
     }

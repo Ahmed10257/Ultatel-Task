@@ -13,10 +13,12 @@
     </button>
   </div>
   <div class="row">
-    <app-search-and-filter></app-search-and-filter>
+    <app-search-and-filter
+      (inputEvent)="getStudents($event)"
+    ></app-search-and-filter>
   </div>
 
   <div class="row">
-    <app-students></app-students>
+    <app-students [studentsFromHome]="students"></app-students>
   </div>
 </div>

@@ -18,12 +18,16 @@ export class HomeComponent {
 
   constructor(private dialog: MatDialog) { }
 
+  students: any;
+
   addStudent() {
     const dialog = this.dialog.open(CreateStudentDialogComponent, {
       width: '500px',
-
     });
+  }
 
+  getStudents(students: any) {
+    this.students = students;
   }
 
 }
