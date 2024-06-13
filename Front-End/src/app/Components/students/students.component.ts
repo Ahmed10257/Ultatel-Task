@@ -89,4 +89,53 @@ export class StudentsComponent implements OnInit {
   onRowsChange() {
     console.log("f");
   }
+
+  sortByName() {
+    this.students.sort((a: any, b: any) => {
+      if (a.firstName < b.firstName) {
+        return -1;
+      } else if (a.firstName > b.firstName) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+  }
+
+  sortByAge() {
+    this.students.sort((a: any, b: any) => {
+      return this.calculateAge(a.birthDate) - this.calculateAge(b.birthDate);
+    });
+  }
+
+  sortByCountry() {
+    this.students.sort((a: any, b: any) => {
+      if (a.country < b.country) {
+        return -1;
+      } else if (a.country > b.country) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+  }
+
+
+  sortByGender() {
+
+  }
+
+  sortByEmail() {
+    this.students.sort((a: any, b: any) => {
+      if (a.email < b.email) {
+        return -1;
+      } else if (a.email > b.email) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+  }
+
+
 }

@@ -23,11 +23,31 @@
     <ng-template pTemplate="header">
       <tr>
         <th></th>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Gender</th>
-        <th>Email</th>
-        <th>Country</th>
+        <th>
+          Name<button class="btn" (click)="sortByName()">
+            <i class="bi bi-sort-alpha-up"></i>
+          </button>
+        </th>
+        <th>
+          Age<button class="btn" (click)="sortByAge()">
+            <i class="bi bi-sort-up"></i>
+          </button>
+        </th>
+        <th>
+          Gender<button class="btn" (click)="sortByGender()">
+            <i class="bi bi-sort-up"></i>
+          </button>
+        </th>
+        <th>
+          Email<button class="btn" (click)="sortByEmail()">
+            <i class="bi bi-sort-up"></i>
+          </button>
+        </th>
+        <th>
+          Country<button class="btn" (click)="sortByCountry()">
+            <i class="bi bi-sort-up"></i>
+          </button>
+        </th>
         <th></th>
       </tr>
     </ng-template>

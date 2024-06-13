@@ -10,7 +10,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, HttpClientModule],
   templateUrl: './search-and-filter.component.html',
-  styleUrl: './search-and-filter.component.css',
+  styleUrls: ['./search-and-filter.component.css'],
   providers: [StudentsService]
 })
 export class SearchAndFilterComponent {
