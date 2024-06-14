@@ -43,8 +43,6 @@ export class StudentsComponent {
     return age;
   }
 
-
-
   editStudent(id: any) {
     this.studentService.getStudentById(id).subscribe((data) => {
       const student = data;
@@ -61,7 +59,7 @@ export class StudentsComponent {
     this.studentService.deleteStudent(id).subscribe({
       next: (data) => {
         console.log(data);
-        this.students = this.students.filter((student: any) => student.id !== id);
+        this.studentsFromHome = this.studentsFromHome.filter((student: any) => student.id !== id);
         Swal.fire({
           icon: 'success',
           title: 'Student Deleted successfully',
@@ -75,6 +73,10 @@ export class StudentsComponent {
       },
       error: (error) => {
         console.error('There was an error!', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Something Went Wrong!',
+        })
       }
     });
   }

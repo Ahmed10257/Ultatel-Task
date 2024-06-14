@@ -59,13 +59,14 @@ export class SearchAndFilterComponent implements OnInit {
 
     this.students = this.students.filter((student: any) => {
       let match = true;
-      if (searchByName && student.firstName.toLowerCase().indexOf(searchByName.toLowerCase()) === -1) {
+      let fullName = student.firstName + " " + student.lastName;
+      if (searchByName && fullName.toLowerCase().indexOf(searchByName.toLowerCase()) === -1) {
         match = false;
       }
       if (searchByAge && student.age !== searchByAge) {
         match = false;
       }
-      if (searchByGender && student.gender !== searchByGender) {
+      if (searchByGender && student.gender.toLowerCase() !== searchByGender) {
         match = false;
       }
       if (searchByCountry && student.country.toLowerCase() !== searchByCountry.toLowerCase()) {
