@@ -1,35 +1,26 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { from, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   private API_URL = 'http://127.0.0.1:3000/auth';
 
-  login(user: any) {
-    return fetch(`${this.API_URL}/login`, {
-      method: 'POST',
-      body: JSON.stringify(user),
-      headers: {
-        'Content-Type': 'application/json'
-      }
+  login(email: string, password: string): Observable<any> {
+    console.log(email, password);
+
+    return this.http.post(`${this.API_URL}/login`, { email, password }, {
+      withCredentials: true
     });
   }
 
   register(user: any): Observable<any> {
-    return from(
-      fetch(`${this.API_URL}/register`, {
-        method: 'POST',
-        body: JSON.stringify(user),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-    );
+    return this.http.post(`${this.API_URL}/register`, user);
   }
 
 }

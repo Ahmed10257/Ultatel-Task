@@ -4,7 +4,10 @@ import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { AuthGuard } from 'src/auth/Guards/auth.guard';
 
-// @UseGuards(AuthGuard)
+
+/* the controller is responsible for handling incoming requests and returning responses to the client
+and it's protected by the AuthGuard */
+@UseGuards(AuthGuard)
 @Controller('students')
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) { }

@@ -1,7 +1,7 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { jwtInterceptor } from './core/interceptors/jwt.interceptor'
 
 
 @Component({
@@ -9,7 +9,8 @@ import { Router, RouterModule, RouterOutlet } from '@angular/router';
   standalone: true,
   imports: [RouterOutlet, RouterModule, HttpClientModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  providers: [{ provide: HTTP_INTERCEPTORS, useValue: jwtInterceptor, multi: true }]
 })
 export class AppComponent {
   title = 'Ultatel Task';

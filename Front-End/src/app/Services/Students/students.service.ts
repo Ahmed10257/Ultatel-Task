@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,12 @@ export class StudentsService {
   constructor(private http: HttpClient) { }
 
   getStudents() {
-    return this.http.get(this.API_URL);
+    // Get the token from the local storage
+    const token = localStorage.getItem('UserToken');
+    // Add the token to the headers
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    // Send a GET request to the API endpoint with the headers
+    return this.http.get(this.API_URL, { headers });
   }
 
   getStudentById(id: number) {

@@ -11,18 +11,24 @@ import { EditStudentDialogComponent } from '../edit-student-dialog/edit-student-
 import { HttpClient } from '@angular/common/http';
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { Input } from '@angular/core';
+import { SimpleChanges } from '@angular/core';
+import { RippleModule } from 'primeng/ripple';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
+
 
 
 @Component({
   selector: 'app-students',
   standalone: true,
-  imports: [CommonModule, TableModule, FontAwesomeModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, TableModule, FontAwesomeModule, ReactiveFormsModule, FormsModule, RippleModule, ButtonModule, ToastModule, ToolbarModule],
   templateUrl: './students.component.html',
-  styleUrl: './students.component.css',
+  styleUrls: ['./students.component.css'],
   providers: [StudentsService]
 })
 
-export class StudentsComponent {
+export class StudentsComponent implements OnChanges {
   constructor(private studentService: StudentsService, private dialog: MatDialog, private router: Router,
     private http: HttpClient) { }
 
@@ -31,6 +37,10 @@ export class StudentsComponent {
   rows: number = 10;
 
   @Input() studentsFromHome: any;
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.studentsFromHome = this.studentsFromHome;
+  }
 
   calculateAge(birthDate: any) {
     const today = new Date();
@@ -53,6 +63,7 @@ export class StudentsComponent {
         },
       });
     });
+
   }
 
   deleteStudent(id: any) {
@@ -60,23 +71,20 @@ export class StudentsComponent {
       next: (data) => {
         console.log(data);
         this.studentsFromHome = this.studentsFromHome.filter((student: any) => student.id !== id);
+
         Swal.fire({
           icon: 'success',
-          title: 'Student Deleted successfully',
-        }).then(() => {
-          this.router
-            .navigateByUrl('/', { skipLocationChange: true })
-            .then(() => {
-              this.router.navigate(['/home']);
-            });
+          title: 'Student Deleted Successfully',
         });
       },
       error: (error) => {
         console.error('There was an error!', error);
+
         Swal.fire({
           icon: 'error',
-          title: 'Something Went Wrong!',
-        })
+          title: 'Error Deleting Student',
+          text: 'Please try again later.',
+        });
       }
     });
   }
@@ -85,62 +93,6 @@ export class StudentsComponent {
     console.log("f");
   }
 
-  sortByName() {
-    this.students.sort((a: any, b: any) => {
-      if (a.firstName < b.firstName) {
-        return -1;
-      } else if (a.firstName > b.firstName) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
-  }
-
-  sortByAge() {
-    this.students.sort((a: any, b: any) => {
-      return this.calculateAge(a.birthDate) - this.calculateAge(b.birthDate);
-    });
-  }
-
-  sortByCountry() {
-    this.students.sort((a: any, b: any) => {
-      if (a.country < b.country) {
-        return -1;
-      } else if (a.country > b.country) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
-  }
-
-
-  sortByGender() {
-    this.students.sort((a: any, b: any) => {
-      if (a.gender < b.gender) {
-        return -1;
-      } else if (a.gender > b.gender) {
-        return 1;
-      } else {
-        return 0;
-      }
-
-    }
-    );
-  }
-
-  sortByEmail() {
-    this.students.sort((a: any, b: any) => {
-      if (a.email < b.email) {
-        return -1;
-      } else if (a.email > b.email) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
-  }
 
 
 }

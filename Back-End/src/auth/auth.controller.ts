@@ -1,23 +1,37 @@
 
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res, HttpStatus } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
-import { HttpCode, HttpStatus } from '@nestjs/common';
+import { Response } from 'express';
+
+
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) { }
 
-  @HttpCode(HttpStatus.OK)
+
   @Post('login')
-  signIn(@Body() signInDto: { email: string, password: string }) {
-    return this.authService.login(signInDto.email, signInDto.password);
+  async signIn(@Body() signInDto: { email: string, password: string }, @Res() res: Response) {
+    // Call the login method from the AuthService and set the access token to the jwt_token.access_token
+    const jwt_token = await this.authService.login(signInDto.email, signInDto.password);
+    const access_token = jwt_token.access_token;
+    // Return the access token in the response along with the status code and message
+    return res.status(HttpStatus.OK).json({
+      statusCode: HttpStatus.OK,
+      message: 'Login successful',
+      access_token
+    });
   }
 
   @Post('register')
-  async register(@Body() registerDto: { fullName: string, email: string, password: string }) {
-    return this.authService.register(registerDto)
+  async register(@Body() registerDto: { fullName: string, email: string, password: string }, @Res() res: Response) {
+
+    const user = await this.authService.register(registerDto);
+    return res.status(HttpStatus.CREATED).json({
+      statusCode: HttpStatus.CREATED,
+      message: 'User created successfully',
+      user
+    });
   }
 
 }

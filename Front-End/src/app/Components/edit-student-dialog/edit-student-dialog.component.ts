@@ -86,13 +86,7 @@ export class EditStudentDialogComponent implements OnInit {
         Swal.fire({
           icon: 'success',
           title: 'Student Updated Successfully',
-        }).then(() => {
-          this.router
-            .navigateByUrl('/', { skipLocationChange: true })
-            .then(() => {
-              this.router.navigate(['/home']);
-            });
-        });
+        })
 
       }, (error) => {
         console.error('There was an error!', error);
@@ -109,3 +103,4 @@ export class EditStudentDialogComponent implements OnInit {
     }
   }
 }
+

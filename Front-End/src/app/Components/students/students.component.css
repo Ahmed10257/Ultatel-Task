@@ -1,0 +1,11 @@
+.custom-borderless-button .p-button {
+  border: none !important; /* Removes the border */
+  box-shadow: none !important; /* Removes any shadow that might act as a border */
+  border-radius: 0 !important; /* Removes the border-radius */
+}
+
+:host ::ng-deep .custom-borderless-button .p-button {
+  width: 150px;
+  margin: 0 auto 2rem auto;
+  display: block;
+}

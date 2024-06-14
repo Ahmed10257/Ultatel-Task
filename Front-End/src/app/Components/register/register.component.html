@@ -1,11 +1,11 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <div class="text-center mt-5">
+      <div class="row m-5 justify-content-center d-flex">
         <img
-          src="https://static.crozdesk.com/web_app_library/providers/logos/000/013/313/original/ultatel-1669216173-logo.png?1669216173"
-          alt="ULTATEL Logo"
-          class="mb-4"
+          class="img-fluid center-block w-50"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1OfJviFca_oVMEtI3gdL3BjJIZQ-gDYxopw&s"
+          alt=""
         />
       </div>
       <div class="card rounded-5 text-center">
@@ -51,8 +51,42 @@
                 id="password"
                 placeholder="********"
               />
-              @if (!passwordValid) {
-              <div class="alert alert-danger fs-5">Password is Invalid</div>
+              @if (!isLengthValid || !hasUppercaseChar || !hasLowercaseChar ||
+              !hasSpecialChar || !hasNumber || passwordValid) {
+              <div class="{{ passwordMessageClass }} fs-5">
+                <div class="mb-3 fw-medium">{{ passwordMessage }}</div>
+                Password must be at least
+                <span
+                  [ngClass]="
+                    isLengthValid ? 'text-success fw-medium' : 'text-danger'
+                  "
+                  >8 characters long </span
+                >and contain at least
+                <span
+                  [ngClass]="
+                    hasUppercaseChar ? 'text-success fw-medium' : 'text-danger'
+                  "
+                  >1 uppercase letter</span
+                >,
+                <span
+                  [ngClass]="
+                    hasLowercaseChar ? 'text-success fw-medium' : 'text-danger'
+                  "
+                  >1 lowercase letter</span
+                >,
+                <span
+                  [ngClass]="
+                    hasNumber ? 'text-success fw-medium' : 'text-danger'
+                  "
+                  >1 number</span
+                >, and
+                <span
+                  [ngClass]="
+                    hasSpecialChar ? 'text-success fw-medium' : 'text-danger'
+                  "
+                  >1 special character</span
+                >
+              </div>
               }
             </div>
             <div class="form-group text-start m-5">
@@ -66,6 +100,9 @@
                 id="confirmPassword"
                 placeholder="********"
               />
+              @if (!passwordMatch) {
+              <div class="alert alert-danger fs-5">Passwords do not match</div>
+              }
             </div>
             <button
               type="submit"

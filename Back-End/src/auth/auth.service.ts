@@ -1,71 +1,40 @@
 
 import { Injectable } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { hash } from 'crypto';
-import { log } from 'console';
+
 
 @Injectable()
 export class AuthService {
 
   constructor(private usersService: UsersService, private jwtService: JwtService) { }
 
-  create(createAuthDto: CreateAuthDto) {
-    return 'This action adds a new auth';
-  }
-
-  findAll() {
-    return `This action returns all auth`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
-
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
-  }
-
-  async validateUser(email: string, pass: string): Promise<any> {
-    const user = await this.usersService.findOneByEmail(email);
-    if (user && await bcrypt.compare(pass, user.password)) {
-      const { password, ...result } = user;
-      return result;
-    }
-    return null;
-  }
-
   async login(email: string, pass: string): Promise<{ access_token: string }> {
-
+    // Find the user with the given email
     const user = await this.usersService.findOneByEmail(email);
-
+    // If the user does not exist, throw an UnauthorizedException
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
     }
-
+    // Compare the password with the hashed password
     const isPasswordValid = await bcrypt.compare(pass, user.password);
-
+    // If the password is invalid, throw an UnauthorizedException
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid credentials');
     }
-
-    const payload = { sub: user.id, username: user.fullName };
+    // Create a payload with the user's id and email
+    const payload = { sub: user.id, username: user.email };
+    // Sign the payload and return the access token
     const access_token = await this.jwtService.signAsync(payload);
-
+    // Return the access token
     return {
       access_token,
     };
   }
 
-  
+
   async register(user: any) {
     const hashedPassword = await bcrypt.hash(user.password, 10);
     const newUser = await this.usersService.create({ ...user, password: hashedPassword });
