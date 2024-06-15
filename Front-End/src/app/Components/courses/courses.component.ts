@@ -39,8 +39,7 @@ import { CreateCourseDialogComponent } from '../../Components/create-course-dial
 })
 export class CoursesComponent implements OnInit {
 
-  constructor(private courseService: CoursesService, private dialog: MatDialog, private router: Router,
-    private confirmationService: ConfirmationService, private messageService: MessageService) { }
+  constructor(private courseService: CoursesService, private dialog: MatDialog, private router: Router) { }
 
   courses: any;
   course: any;

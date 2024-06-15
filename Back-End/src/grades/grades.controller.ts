@@ -16,4 +16,14 @@ export class GradesController {
   ): Promise<Grade> {
     return this.gradesService.addGradeToStudent(studentId, courseId, grade);
   }
+
+  @Get()
+  findAll() {
+    return this.gradesService.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.gradesService.findOne(+id);
+  }
 }

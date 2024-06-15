@@ -37,4 +37,12 @@ export class GradesService {
 
     return this.gradeRepository.save(newGrade);
   }
+
+  findAll() {
+    return this.gradeRepository.find();
+  }
+
+  findOne(id: number) {
+    return this.gradeRepository.findOneBy({ id });
+  }
 }
