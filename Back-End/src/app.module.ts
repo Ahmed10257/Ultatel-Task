@@ -8,6 +8,8 @@ import { UsersModule } from './users/users.module';
 import { StudentsModule } from './students/students.module';
 import { Student } from './students/entities/student.entity';
 import { User } from './users/entities/user.entity';
+import { Course } from './courses/entities/course.entity';
+import { CoursesModule } from './courses/courses.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -17,9 +19,9 @@ import { User } from './users/entities/user.entity';
     port: 3306,
     username: 'root',
     password: '',
-    entities: [Student, User],
+    entities: [Student, User, Course],
     synchronize: false,
-  }), AuthModule, UsersModule, StudentsModule],
+  }), AuthModule, UsersModule, StudentsModule, CoursesModule],
 
   controllers: [AppController],
   providers: [AppService],

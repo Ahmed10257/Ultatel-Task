@@ -21,19 +21,39 @@ export class StudentsService {
   }
 
   getStudentById(id: number) {
-    return this.http.get(`${this.API_URL}/${id}`);
+    // Get the token from the local storage
+    const token = localStorage.getItem('UserToken');
+    // Add the token to the headers
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    // Send a GET request to the API endpoint with the headers
+    return this.http.get(`${this.API_URL}/${id}`, { headers });
   }
 
   createStudent(student: any) {
-    return this.http.post(this.API_URL, student);
+    // Get the token from the local storage
+    const token = localStorage.getItem('UserToken');
+    // Add the token to the headers
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    // Send a POST request to the API endpoint with the headers
+    return this.http.post(this.API_URL, student, { headers });
   }
 
   updateStudent(student: any) {
-    return this.http.put(`${this.API_URL}/${student.id}`, student);
+    // Get the token from the local storage
+    const token = localStorage.getItem('UserToken');
+    // Add the token to the headers
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    // Send a PUT request to the API endpoint with the headers
+    return this.http.put(`${this.API_URL}/${student.id}`, student, { headers });
   }
 
   deleteStudent(id: string) {
-    return this.http.delete(`${this.API_URL}/${id}`);
+    // Get the token from the local storage
+    const token = localStorage.getItem('UserToken');
+    // Add the token to the headers
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    // Send a DELETE request to the API endpoint with the headers
+    return this.http.delete(`${this.API_URL}/${id}`, { headers });
   }
 
 }

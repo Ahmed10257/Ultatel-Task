@@ -86,6 +86,7 @@ export class EditStudentDialogComponent implements OnInit {
         Swal.fire({
           icon: 'success',
           title: 'Student Updated Successfully',
+          showConfirmButton: true,
         })
 
       }, (error) => {

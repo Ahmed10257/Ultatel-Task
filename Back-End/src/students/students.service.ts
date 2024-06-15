@@ -30,7 +30,7 @@ export class StudentsService {
   }
 
   async update(id: number, updateStudentDto: UpdateStudentDto): Promise<Student | null> {
-    await this.studentRepository.update(id, updateStudentDto);
+    await this.studentRepository.update(id, updateStudentDto)
     return this.studentRepository.findOneBy({ id });
   }
 

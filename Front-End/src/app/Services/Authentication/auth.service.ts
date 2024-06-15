@@ -12,8 +12,7 @@ export class AuthService {
   private API_URL = 'http://127.0.0.1:3000/auth';
 
   login(email: string, password: string): Observable<any> {
-    console.log(email, password);
-
+    // Send a POST request to the API endpoint with the email, password, and withCredentials set to true
     return this.http.post(`${this.API_URL}/login`, { email, password }, {
       withCredentials: true
     });

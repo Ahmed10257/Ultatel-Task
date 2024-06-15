@@ -42,6 +42,7 @@ export class StudentsComponent implements OnChanges {
     this.studentsFromHome = this.studentsFromHome;
   }
 
+  // a method to calculate the age of the student based on the birthdate
   calculateAge(birthDate: any) {
     const today = new Date();
     const birthDate1 = new Date(birthDate);
@@ -53,6 +54,7 @@ export class StudentsComponent implements OnChanges {
     return age;
   }
 
+  // a method to open the dialog to edit the student
   editStudent(id: any) {
     this.studentService.getStudentById(id).subscribe((data) => {
       const student = data;
@@ -66,6 +68,7 @@ export class StudentsComponent implements OnChanges {
 
   }
 
+  // a method to delete the student
   deleteStudent(id: any) {
     this.studentService.deleteStudent(id).subscribe({
       next: (data) => {
@@ -89,6 +92,7 @@ export class StudentsComponent implements OnChanges {
     });
   }
 
+  // a method to change the number of rows displayed in the table
   onRowsChange() {
     console.log("f");
   }

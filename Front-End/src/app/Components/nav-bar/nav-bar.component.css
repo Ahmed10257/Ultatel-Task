@@ -1,0 +1,11 @@
+.active {
+  background-color: #addeff !important;
+  color: #007bff !important;
+  border-radius: 5px !important;
+  padding: 5px !important;
+  margin: 5px !important;
+  font-weight: medium !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: 0.3s !important;
+}
