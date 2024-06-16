@@ -3,7 +3,14 @@ import { GradesService } from './grades.service';
 import { CreateGradeDto } from './dto/create-grade.dto';
 import { UpdateGradeDto } from './dto/update-grade.dto';
 import { Grade } from './entities/grade.entity';
+import { AuthGuard } from 'src/auth/Guards/auth.guard';
+import { UseGuards } from '@nestjs/common';
 
+
+
+/* the controller is responsible for handling incoming requests and returning responses to the client
+and it's protected by the AuthGuard */
+@UseGuards(AuthGuard)
 @Controller('grades')
 export class GradesController {
   constructor(private readonly gradesService: GradesService) { }

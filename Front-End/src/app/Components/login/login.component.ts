@@ -7,6 +7,10 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../Services/Authentication/auth.service';
 import Swal from 'sweetalert2';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { OnInit } from '@angular/core';
+import { Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+
 
 @Component({
   selector: 'app-login',
@@ -15,7 +19,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   constructor(private router: Router, private authService: AuthService) { }
 
@@ -28,6 +32,10 @@ export class LoginComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
   });
+
+  ngOnInit() {
+
+  }
 
   onSubmit() {
     //Checking the validity of the form fields to display the error messages
@@ -44,8 +52,9 @@ export class LoginComponent {
         /*If the response contains an access token, the user is logged in successfully
         and will be redirected to the home page*/
         if (response.access_token) {
-          this.router.navigate(['/home']);
-
+          this.router.navigate(['/home'], { replaceUrl: true }).then(() => {
+            window.location.reload();
+          });
           Swal.fire({
             icon: 'success',
             title: 'Welcome!',

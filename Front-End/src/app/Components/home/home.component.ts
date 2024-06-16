@@ -6,6 +6,12 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CreateStudentDialogComponent } from '../create-student-dialog/create-student-dialog.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { OnInit } from '@angular/core';
+import { Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+
+
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -16,7 +22,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
 })
 export class HomeComponent {
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog) {
+
+  }
 
   students: any;
 

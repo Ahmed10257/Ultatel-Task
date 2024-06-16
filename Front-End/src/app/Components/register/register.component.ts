@@ -3,8 +3,8 @@ import { Router, RouterModule } from '@angular/router';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { AuthService } from '../../Services/Authentication/auth.service';
-import { OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -39,11 +39,11 @@ export class RegisterComponent {
   });
 
   validatingPasswords(password: any): boolean {
-    const lengthRegex = /^.{8,}$/;
-    const lowercaseRegex = /[a-z]/;
-    const uppercaseRegex = /[A-Z]/;
-    const numberRegex = /\d/;
-    const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+    const lengthRegex = /^.{8,}$/;                       //Checking the length of the password
+    const lowercaseRegex = /[a-z]/;                      //Checking for lowercase characters
+    const uppercaseRegex = /[A-Z]/;                      //Checking for uppercase characters
+    const numberRegex = /\d/;                            //Checking for numbers
+    const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;   //Checking for special characters
 
     this.isLengthValid = lengthRegex.test(password);
     this.hasLowercaseChar = lowercaseRegex.test(password);
@@ -52,7 +52,7 @@ export class RegisterComponent {
     this.hasSpecialChar = specialCharRegex.test(password);
 
     const strengthScore = [this.hasNumber, this.hasLowercaseChar, this.hasUppercaseChar, this.hasSpecialChar, this.isLengthValid].filter(value => !value).length;
-
+    //Checking the strength of the password to display the message
     switch (strengthScore) {
       case 0:
         this.passwordMessage = 'Very Strong';
@@ -90,9 +90,6 @@ export class RegisterComponent {
     return false;
   }
 
-
-
-
   onSubmit(e: Event) {
     e.preventDefault();
     //Checking the validity of the form fields to display the error messages
@@ -100,15 +97,27 @@ export class RegisterComponent {
     this.emailValid = this.registerForm.controls['email'].valid;
     this.passwordValid = this.validatingPasswords(this.registerForm.controls['password'].value);
     this.passwordMatch = this.registerForm.controls['password'].value === this.registerForm.controls['confirmPassword'].value;
-
+    //Checking if the form is valid to submit the data
     if (this.registerForm.valid && this.passwordValid) {
       this.authService.register(this.registerForm.value).subscribe({
         next: (data) => {
           console.log(data);
+          //Displaying the success message
+          Swal.fire({
+            icon: 'success',
+            title: 'Successfully Registered!',
+            showConfirmButton: true,
+          });
           this.router.navigate(['/login']);
         },
         error: (error) => {
           console.error('There was an error!', error);
+          //Displaying the error message
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'There was an error!',
+          });
         }
       });
     }

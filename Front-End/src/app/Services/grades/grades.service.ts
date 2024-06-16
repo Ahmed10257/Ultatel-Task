@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,26 +12,56 @@ export class GradesService {
   private API_URL = 'http://localhost:3000/grades';
 
   getGrades() {
-    return this.http.get(this.API_URL);
+    // Get the token from the local storage
+    const token = localStorage.getItem('UserToken');
+    // Add the token to the headers
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    // Send a GET request to the API endpoint with the headers
+    return this.http.get(this.API_URL, { headers });
   }
 
   getGradeById(id: number) {
-    return this.http.get(`${this.API_URL}/${id}`);
+    // Get the token from the local storage
+    const token = localStorage.getItem('UserToken');
+    // Add the token to the headers
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    // Send a GET request to the API endpoint with the headers
+    return this.http.get(`${this.API_URL}/${id}`, { headers });
   }
 
   editGrade(grade: any) {
-    return this.http.put(`${this.API_URL}/${grade.id}`, grade);
+    // Get the token from the local storage
+    const token = localStorage.getItem('UserToken');
+    // Add the token to the headers
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    // Send a PUT request to the API endpoint with the headers
+    return this.http.put(`${this.API_URL}/${grade.id}`, grade, { headers });
   }
 
   deleteGrade(id: string) {
-    return this.http.delete(`${this.API_URL}/${id}`);
+    // Get the token from the local storage
+    const token = localStorage.getItem('UserToken');
+    // Add the token to the headers
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    // Send a Delete request to the API endpoint with the headers
+    return this.http.delete(`${this.API_URL}/${id}`, { headers });
   }
 
   createGrade(courseData: any) {
-    return this.http.post(`${this.API_URL}/${courseData.studentId}/courses/${courseData.courseId}`, courseData);
+    // Get the token from the local storage
+    const token = localStorage.getItem('UserToken');
+    // Add the token to the headers
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    // Send a POST request to the API endpoint with the headers
+    return this.http.post(`${this.API_URL}/${courseData.studentId}/courses/${courseData.courseId}`, courseData, { headers });
   }
 
   getStudentGrades(id: number) {
-    return this.http.get(`${this.API_URL}/student/${id}`);
+    // Get the token from the local storage
+    const token = localStorage.getItem('UserToken');
+    // Add the token to the headers
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    // Send a GET request to the API endpoint with the headers
+    return this.http.get(`${this.API_URL}/student/${id}`, { headers });
   }
 }

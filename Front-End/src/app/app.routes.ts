@@ -1,3 +1,4 @@
+import { NavBarComponent } from './Components/nav-bar/nav-bar.component';
 import { Routes } from '@angular/router';
 import { HomeComponent } from './Components/home/home.component';
 import { LoginComponent } from './Components/login/login.component';
@@ -5,6 +6,7 @@ import { RegisterComponent } from './Components/register/register.component';
 import { SearchAndFilterComponent } from './Components/search-and-filter/search-and-filter.component';
 import { CoursesComponent } from './Components/courses/courses.component';
 import { GradesComponent } from './Components/grades/grades.component';
+
 
 export const routes: Routes = [
 

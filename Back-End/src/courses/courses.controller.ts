@@ -4,7 +4,12 @@ import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { Course } from './entities/course.entity';
 import { NotFoundException, InternalServerErrorException } from '@nestjs/common';
+import { AuthGuard } from 'src/auth/Guards/auth.guard';
+import { UseGuards } from '@nestjs/common';
 
+/* the controller is responsible for handling incoming requests and returning responses to the client
+and it's protected by the AuthGuard */
+@UseGuards(AuthGuard)
 @Controller('courses')
 export class CoursesController {
   constructor(private readonly coursesService: CoursesService) { }
