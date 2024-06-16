@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { GradesService } from '../../Services/grades/grades.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
@@ -18,7 +18,7 @@ import { Inject } from '@angular/core';
 })
 export class EditGradeDialogComponent {
 
-  constructor(private gradeService: GradesService, private dialog: MatDialog, private router: Router, @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(private gradeService: GradesService, private dialog: MatDialogRef<any>, private router: Router, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   grade = this.data.gradeFromHome;
   gradeValid: boolean = true;
@@ -35,17 +35,30 @@ export class EditGradeDialogComponent {
 
   onSubmit() {
     this.gradeValid = this.EditGradeForm.controls['grade'].valid;
-    this.grade = this.EditGradeForm.controls['grade'].value;
+    this.grade.grade = this.EditGradeForm.controls['grade'].value;
 
     if (
       this.gradeValid &&
       this.totalValid
     ) {
-      this.gradeService.editGrade(this.grade.id, this.grade).subscribe((data) => {
-        Swal.fire('Grade Edited Successfully', '', 'success');
-        this.dialog.closeAll();
-        this.router.navigateByUrl('/grades');
-      });
+      this.gradeService.editGrade(this.grade).subscribe((data) => {
+        console.log(data);
+        this.dialog.close();
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Grade updated successfully',
+          showConfirmButton: true,
+        });
+      }), (error: any) => {
+        console.log(error);
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'An error occurred',
+          showConfirmButton: true,
+        });
+      }
     }
   }
 

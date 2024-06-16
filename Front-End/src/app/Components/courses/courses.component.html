@@ -1,86 +1,102 @@
 <div class="container">
-  <h1 class="mt-5 text-start fs-2 fw-medium">Courses</h1>
+  <div class="row mt-5">
+    <img
+      class="img-fluid center-block w-25"
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1OfJviFca_oVMEtI3gdL3BjJIZQ-gDYxopw&s"
+      alt=""
+    />
+    <h1 class="mt-5 text-start fs-2 fw-medium">Courses</h1>
 
-  <p-table
-    #dt
-    [value]="courses"
-    [rows]="10"
-    [paginator]="true"
-    [globalFilterFields]="['id', 'courseName', 'courseGrade']"
-    [tableStyle]="{ 'min-width': '75rem' }"
-    [rowHover]="true"
-    dataKey="id"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [showCurrentPageReport]="true"
-  >
-    <ng-template pTemplate="caption">
-      <div class="d-flex flex-row align-items-center justify-content-between">
-        <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input
-            pInputText
-            type="text"
-            [(ngModel)]="searchTerm"
-            #searchInput
-            (ngModelChange)="filterCourses(searchInput.value)"
-            placeholder="Search..."
+    <p-table
+      #dt
+      [value]="courses"
+      [rows]="10"
+      [paginator]="true"
+      [globalFilterFields]="['id', 'courseName', 'courseGrade']"
+      [tableStyle]="{ 'min-width': '75rem' }"
+      [rowHover]="true"
+      dataKey="id"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
+    >
+      <ng-template pTemplate="caption">
+        <div class="d-flex flex-row align-items-center justify-content-between">
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input
+              pInputText
+              type="text"
+              [(ngModel)]="searchTerm"
+              #searchInput
+              (ngModelChange)="filterCourses(searchInput.value)"
+              placeholder="Search..."
+            />
+          </span>
+          <p-button
+            pRipple
+            severity="success"
+            label="Add Course"
+            icon="pi pi-plus"
+            class="mr-2"
+            (click)="AddCourse()"
           />
-        </span>
-        <p-button
-          pRipple
-          severity="success"
-          label="Add Course"
-          icon="pi pi-plus"
-          class="mr-2"
-          (click)="AddCourse()"
-        />
-      </div>
-    </ng-template>
-    <ng-template pTemplate="header">
-      <tr>
-        <th pSortableColumn="id" style="min-width: 1rem">
-          Id <p-sortIcon field="id" />
-        </th>
-        <th pSortableColumn="courseName" style="min-width: 5rem">
-          Name <p-sortIcon field="courseName" />
-        </th>
-        <th pSortableColumn="courseGrade">
-          Grade <p-sortIcon field="courseGrade" />
-        </th>
-        <th>Actions</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-course>
-      <tr>
-        <td>
-          {{ course.id }}
-        </td>
-        <td>
-          {{ course.courseName }}
-        </td>
-        <td>
-          {{ course.courseGrade }}
-        </td>
-        <td>
-          <button
-            class="btn btn-outline-success rounded-circle me-4"
-            (click)="editCourse(course.id)"
-          >
-            <i class="bi bi-pencil"></i>
-          </button>
-          <button
-            class="btn btn-outline-danger rounded-circle"
-            (click)="deleteCourse(course.id)"
-          >
-            <i class="bi bi-trash"></i>
-          </button>
-        </td>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="summary">
-      <div class="flex align-items-center justify-content-between">
-        In total there are {{ courses ? courses.length : 0 }} courses.
-      </div>
-    </ng-template>
-  </p-table>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="id" style="min-width: 1rem">
+            Id <p-sortIcon field="id" />
+          </th>
+          <th style="min-width: 1rem">Image</th>
+          <th pSortableColumn="courseName" style="min-width: 5rem">
+            Name <p-sortIcon field="courseName" />
+          </th>
+          <th pSortableColumn="courseGrade">
+            Grade <p-sortIcon field="courseGrade" />
+          </th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-course>
+        <tr>
+          <td>
+            {{ course.id }}
+          </td>
+          <td [width]="25">
+            <img
+              class="img-fluid rounded-circle"
+              src="https://res.cloudinary.com/dh7osyxvl/image/upload/v1718497501/Ultatel/pngegg_rtnf5e.png"
+              alt=""
+            />
+          </td>
+
+          <td>
+            {{ course.courseName }}
+          </td>
+          <td>
+            {{ course.courseGrade }}
+          </td>
+          <td>
+            <button
+              class="btn btn-outline-success rounded-circle me-4"
+              (click)="editCourse(course.id)"
+            >
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button
+              class="btn btn-outline-danger rounded-circle"
+              (click)="deleteCourse(course.id)"
+            >
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+          In total there are {{ courses ? courses.length : 0 }} courses.
+        </div>
+      </ng-template>
+    </p-table>
+  </div>
 </div>

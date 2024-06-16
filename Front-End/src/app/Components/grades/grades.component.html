@@ -1,88 +1,84 @@
 <div class="container">
-  <h1 class="mt-5 text-start fs-2 fw-medium">Grades</h1>
-
-  <p-table
-    #dt
-    [value]="grades"
-    [rows]="10"
-    [paginator]="true"
-    [globalFilterFields]="[]"
-    [tableStyle]="{ 'min-width': '75rem' }"
-    [rowHover]="true"
-    dataKey="id"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [showCurrentPageReport]="true"
-  >
-    <!-- <ng-template pTemplate="caption">
-      <div class="d-flex flex-row align-items-center justify-content-between">
-        <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input
-            pInputText
-            type="text"
-            [(ngModel)]="searchTerm"
-            #searchInput
-            (ngModelChange)="filterCourses(searchInput.value)"
-            placeholder="Search..."
-          />
-        </span>
-      </div>
-    </ng-template> -->
-    <ng-template pTemplate="header">
-      <tr>
-        <th pSortableColumn="id" style="min-width: 1rem">
-          Id <p-sortIcon field="id" />
-        </th>
-        <th pSortableColumn="studentName" style="min-width: 5rem">
-          Name <p-sortIcon field="studentName" />
-        </th>
-        <th pSortableColumn="courseName">
-          Course <p-sortIcon field="courseName" />
-        </th>
-        <th pSortableColumn="grade">Grade <p-sortIcon field="grade" /></th>
-        <th pSortableColumn="percentageGrade">
-          Percentage <p-sortIcon field="percentageGrade" />
-        </th>
-        <th>Actions</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-grade>
-      <tr>
-        <td>
-          {{ grade.id }}
-        </td>
-        <td>
-          {{ grade.student.firstName + " " + grade.student.lastName }}
-        </td>
-        <td>
-          {{ grade.course.courseName }}
-        </td>
-        <td>
-          {{ grade.grade }}
-        </td>
-        <td>
-          {{ calculatePercentage(grade.grade, grade.course.courseGrade) }} %
-        </td>
-        <td>
-          <button
-            class="btn btn-outline-success rounded-circle me-4"
-            (click)="editGrade(grade.id)"
-          >
-            <i class="bi bi-pencil"></i>
-          </button>
-          <!-- <button
-            class="btn btn-outline-danger rounded-circle"
-            (click)="deleteCourse(course.id)"
-          >
-            <i class="bi bi-trash"></i>
-          </button> -->
-        </td>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="summary">
-      <div class="flex align-items-center justify-content-between">
-        In total there are {{ grades ? grades.length : 0 }} grades.
-      </div>
-    </ng-template>
-  </p-table>
+  <div class="row mt-5">
+    <img
+      class="img-fluid center-block w-25"
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1OfJviFca_oVMEtI3gdL3BjJIZQ-gDYxopw&s"
+      alt=""
+    />
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="mt-5 text-start fs-2 fw-medium">Grades</h1>
+      <button class="btn btn-success rounded-4 fs-4 w-25" (click)="addGrade()">
+        Assign Course to Student
+      </button>
+    </div>
+    <p-table
+      #dt
+      [value]="grades"
+      [rows]="10"
+      [paginator]="true"
+      [globalFilterFields]="[]"
+      [tableStyle]="{ 'min-width': '75rem' }"
+      [rowHover]="true"
+      dataKey="id"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="id" style="min-width: 1rem">
+            Id <p-sortIcon field="id" />
+          </th>
+          <th pSortableColumn="studentName" style="min-width: 5rem">
+            Name <p-sortIcon field="studentName" />
+          </th>
+          <th pSortableColumn="courseName">
+            Course <p-sortIcon field="courseName" />
+          </th>
+          <th pSortableColumn="grade">Grade <p-sortIcon field="grade" /></th>
+          <th pSortableColumn="percentageGrade">
+            Percentage <p-sortIcon field="percentageGrade" />
+          </th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-grade>
+        <tr>
+          <td>
+            {{ grade.id }}
+          </td>
+          <td>
+            {{ grade.student.firstName + " " + grade.student.lastName }}
+          </td>
+          <td>
+            {{ grade.course.courseName }}
+          </td>
+          <td>
+            {{ grade.grade }}
+          </td>
+          <td>
+            {{ calculatePercentage(grade.grade, grade.course.courseGrade) }} %
+          </td>
+          <td>
+            <button
+              class="btn btn-outline-success rounded-circle me-4"
+              (click)="editGrade(grade.id)"
+            >
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button
+              class="btn btn-outline-danger rounded-circle"
+              (click)="deleteGrade(grade.id)"
+            >
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+          In total there are {{ grades ? grades.length : 0 }} grades.
+        </div>
+      </ng-template>
+    </p-table>
+  </div>
 </div>

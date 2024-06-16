@@ -1,0 +1,51 @@
+<div class="container p-4">
+  <form
+    [formGroup]="assignCourseForm"
+    class="d-flex flex-column align-content-between"
+  >
+    <!-- Selecting the Student -->
+    <div class="d-flex flex-row justify-content-around">
+      <div class="d-flex flex-column align-items-center">
+        <div class="fs-5 fw-medium mb-3">Students</div>
+        <p-dropdown
+          formControlName="student"
+          [options]="students"
+          optionLabel="displayName"
+          placeholder="Select a Student"
+        >
+          <ng-template let-student pTemplate="item">
+            {{ student.firstName }} {{ student.lastName }}
+          </ng-template>
+        </p-dropdown>
+      </div>
+      <!-- Selecting the Course -->
+      <div class="d-flex flex-column align-items-center">
+        <div class="fs-5 fw-medium mb-3">Courses</div>
+        <p-dropdown
+          formControlName="course"
+          [options]="courses"
+          optionLabel="courseName"
+          placeholder="Select a Course"
+        />
+      </div>
+      <!-- Setting the Grade -->
+      <div class="d-flex flex-column align-items-center">
+        <div class="fs-5 fw-medium mb-3">Grade</div>
+        <input
+          formControlName="grade"
+          type="number"
+          class="form-control"
+          placeholder="Enter Grade"
+        />
+      </div>
+    </div>
+    <div class="d-flex justify-content-center mt-4">
+      <button
+        class="btn btn-success fs-5 fw-medium w-25"
+        (click)="assignCourse()"
+      >
+        Assign Course
+      </button>
+    </div>
+  </form>
+</div>

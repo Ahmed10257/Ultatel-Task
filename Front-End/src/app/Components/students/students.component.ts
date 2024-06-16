@@ -16,13 +16,14 @@ import { RippleModule } from 'primeng/ripple';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
+import { AvatarModule } from 'primeng/avatar';
 
 
 
 @Component({
   selector: 'app-students',
   standalone: true,
-  imports: [CommonModule, TableModule, FontAwesomeModule, ReactiveFormsModule, FormsModule, RippleModule, ButtonModule, ToastModule, ToolbarModule],
+  imports: [CommonModule, TableModule, FontAwesomeModule, ReactiveFormsModule, FormsModule, RippleModule, ButtonModule, ToastModule, ToolbarModule, AvatarModule],
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.css'],
   providers: [StudentsService]

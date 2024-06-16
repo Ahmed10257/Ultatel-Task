@@ -38,11 +38,30 @@ export class GradesService {
     return this.gradeRepository.save(newGrade);
   }
 
-  findAll() {
+  findAll(): Promise<Grade[]> {
     return this.gradeRepository.find();
   }
 
-  findOne(id: number) {
+  findOne(id: number): Promise<Grade> {
     return this.gradeRepository.findOneBy({ id });
+  }
+
+  async update(id: number, updateGradeDto: UpdateGradeDto): Promise<Grade> {
+    await this.gradeRepository.update(id, updateGradeDto);
+    return this.gradeRepository.findOneBy({ id });
+  }
+
+  async remove(id: number): Promise<void> {
+    await this.gradeRepository.delete(id);
+  }
+
+  create(createGradeDto: CreateGradeDto): Promise<Grade> {
+    return this.gradeRepository.save(createGradeDto);
+  }
+
+  async getStudentGrades(studentId: number): Promise<Grade[]> {
+    console.log('studentId', studentId);
+
+    return this.gradeRepository.find({ where: { student: { id: studentId } } });
   }
 }

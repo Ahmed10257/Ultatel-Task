@@ -20,7 +20,17 @@ export class CoursesService {
   }
 
   findOne(id: any): Promise<Course> {
-    return this.courseRepository.findOneBy({ id });
+    return this.courseRepository.findOne(id);
+  }
+
+  async findOneByName(courseName: string): Promise<Course> {
+    try {
+      const course = await this.courseRepository.findOne({ where: { courseName } });
+      return course;
+    } catch (error) {
+      console.error('Error finding course by name:', error);
+      throw new Error('Error finding course by name');
+    }
   }
 
 

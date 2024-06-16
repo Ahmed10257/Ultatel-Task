@@ -32,4 +32,8 @@ export class CoursesService {
     return this.http.delete(`${this.API_URL}/${id}`);
   }
 
+  getCoursesNames() {
+    return this.http.get(`${this.API_URL}/names`);
+  }
+
 }

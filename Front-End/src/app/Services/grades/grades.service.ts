@@ -18,7 +18,19 @@ export class GradesService {
     return this.http.get(`${this.API_URL}/${id}`);
   }
 
-  editGrade(id: number, grade: any) {
-    return this.http.put(`${this.API_URL}/${id}`, grade);
+  editGrade(grade: any) {
+    return this.http.put(`${this.API_URL}/${grade.id}`, grade);
+  }
+
+  deleteGrade(id: string) {
+    return this.http.delete(`${this.API_URL}/${id}`);
+  }
+
+  createGrade(courseData: any) {
+    return this.http.post(`${this.API_URL}/${courseData.studentId}/courses/${courseData.courseId}`, courseData);
+  }
+
+  getStudentGrades(id: number) {
+    return this.http.get(`${this.API_URL}/student/${id}`);
   }
 }

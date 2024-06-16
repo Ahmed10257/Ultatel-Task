@@ -7,6 +7,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { GradesService } from '../../Services/grades/grades.service';
+import { MatDialog } from '@angular/material/dialog';
+import { EdtiStudentCoursesDialogComponent } from '../edti-student-courses-dialog/edti-student-courses-dialog.component';
 
 
 @Component({
@@ -19,8 +22,8 @@ import Swal from 'sweetalert2';
 })
 export class EditStudentDialogComponent implements OnInit {
 
-  constructor(private studentsService: StudentsService, @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialogRef<any>,
-    private router: Router) { this.student = this.data.studentFromHome; }
+  constructor(private studentsService: StudentsService, @Inject(MAT_DIALOG_DATA) public data: any, private dialogref: MatDialogRef<any>, private dialog: MatDialog,
+    private router: Router, private gradeService: GradesService) { this.student = this.data.studentFromHome; }
 
   firstNameValid: boolean = true;
   lastNameValid: boolean = true;
@@ -28,6 +31,7 @@ export class EditStudentDialogComponent implements OnInit {
   emailValid: boolean = true;
   genderValid: boolean = true;
   countryValid: boolean = true;
+  courses: any;
 
   student = this.data.studentFromHome;
 
@@ -51,6 +55,22 @@ export class EditStudentDialogComponent implements OnInit {
       year = d.getFullYear();
 
     return [year, month.padStart(2, '0'), day.padStart(2, '0')].join('-');
+  }
+
+  editCourses(id: any) {
+    this.gradeService.getStudentGrades(id).subscribe((data) => {
+      this.courses = data;
+      this.courses = this.courses.map((course: any) => { course.name = course.courseName; return course; });
+      console.log(this.courses);
+      const dialog = this.dialog.open(EdtiStudentCoursesDialogComponent, {
+        width: '1200px',
+        height: '600px',
+        data: {
+          studentCourses: this.courses,
+          studentformDialog: this.student
+        },
+      });
+    });
   }
 
   onSubmit() {
@@ -82,7 +102,7 @@ export class EditStudentDialogComponent implements OnInit {
 
       this.studentsService.updateStudent(this.student).subscribe((date) => {
         console.log(date);
-        this.dialog.close();
+        this.dialogref.close();
         Swal.fire({
           icon: 'success',
           title: 'Student Updated Successfully',

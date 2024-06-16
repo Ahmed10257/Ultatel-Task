@@ -26,6 +26,7 @@
     <ng-template pTemplate="header">
       <tr>
         <th></th>
+        <th>Image</th>
         <th pSortableColumn="firstName">
           Name<p-sortIcon field="firstName" />
         </th>
@@ -45,6 +46,15 @@
           >
             <i class="bi bi-pencil"></i>
           </button>
+        </td>
+
+        <td>
+          <p-avatar
+            icon="pi pi-user"
+            styleClass="mr-2"
+            size="xlarge"
+            shape="circle"
+          />
         </td>
         <td>{{ student.firstName + " " + student.lastName }}</td>
         <td>{{ calculateAge(student.birthDate) }} Years</td>

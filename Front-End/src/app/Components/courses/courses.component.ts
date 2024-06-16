@@ -103,7 +103,7 @@ export class CoursesComponent implements OnInit {
         Swal.fire({
           icon: 'error',
           title: 'Error Deleting Course',
-          text: 'Please try again later.',
+          text: "There are Students enrolled in this course. You can't delete it.",
         });
       }
     });
