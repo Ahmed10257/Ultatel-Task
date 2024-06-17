@@ -1,0 +1,21 @@
+.image-slider {
+  width: 100%; /* Adjust based on your requirement */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+@keyframes slideInAndStop {
+  from {
+    transform: translateX(
+      -110%
+    ); /* Slightly more to ensure it starts off-screen */
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.slide-image {
+  animation: slideInAndStop 1.5s forwards ease-out; /* Using 'ease-out' to slow down the end */
+}

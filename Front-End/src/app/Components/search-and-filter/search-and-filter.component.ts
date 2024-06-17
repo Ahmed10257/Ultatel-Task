@@ -20,7 +20,8 @@ export class SearchAndFilterComponent implements OnInit {
 
   searchForm = new FormGroup({
     searchByName: new FormControl(''),
-    searchByAge: new FormControl(''),
+    searchByLowerAge: new FormControl(''),
+    searchByUpperAge: new FormControl(''),
     searchByGender: new FormControl(''),
     searchByCountry: new FormControl(''),
   });
@@ -46,16 +47,32 @@ export class SearchAndFilterComponent implements OnInit {
 
   sendStudents() {
     this.inputEvent.emit(this.students);
-    console.log(this.students);
+  }
+
+  // a method to calculate the age of the student based on the birthdate
+  calculateAge(birthDate: any) {
+    const today = new Date();
+    const birthDate1 = new Date(birthDate);
+    let age = today.getFullYear() - birthDate1.getFullYear();
+    const m = today.getMonth() - birthDate1.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate1.getDate())) {
+      age--;
+    }
+    return age;
   }
 
 
 
   search() {
     const searchByName = this.searchForm.controls.searchByName.value;
-    const searchByAge = this.searchForm.controls.searchByAge.value;
+    const searchByLowerAge = Number(this.searchForm.controls.searchByLowerAge.value);
+    const searchByUpperAge = Number(this.searchForm.controls.searchByUpperAge.value);
     const searchByGender = this.searchForm.controls.searchByGender.value;
     const searchByCountry = this.searchForm.controls.searchByCountry.value;
+
+    console.log(searchByName, searchByLowerAge, searchByUpperAge, searchByGender, searchByCountry);
+    console.log(this.searchForm.value);
+
 
     this.students = this.students.filter((student: any) => {
       let match = true;
@@ -63,10 +80,13 @@ export class SearchAndFilterComponent implements OnInit {
       if (searchByName && fullName.toLowerCase().indexOf(searchByName.toLowerCase()) === -1) {
         match = false;
       }
-      if (searchByAge && student.age !== searchByAge) {
+      if (searchByLowerAge && this.calculateAge(student.birthDate) < searchByLowerAge) {
         match = false;
       }
-      if (searchByGender && student.gender.toLowerCase() !== searchByGender) {
+      if (searchByUpperAge && this.calculateAge(student.birthDate) > searchByUpperAge) {
+        match = false;
+      }
+      if (searchByGender && student.gender.toLowerCase() !== searchByGender.toLowerCase()) {
         match = false;
       }
       if (searchByCountry && student.country.toLowerCase() !== searchByCountry.toLowerCase()) {
@@ -76,8 +96,6 @@ export class SearchAndFilterComponent implements OnInit {
 
       return match;
     });
-    console.log(this.students);
-
     this.sendStudents();
   }
 

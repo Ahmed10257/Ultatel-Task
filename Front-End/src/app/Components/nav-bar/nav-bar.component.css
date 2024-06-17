@@ -9,3 +9,17 @@
   cursor: pointer !important;
   transition: 0.3s !important;
 }
+
+@keyframes shrinkExpand {
+  0%,
+  100% {
+    transform: scale(1); /* Original size */
+  }
+  50% {
+    transform: scale(0.8); /* Shrink to 80% of the original size */
+  }
+}
+
+.shrink-image {
+  animation: shrinkExpand 2s infinite !important;
+}
