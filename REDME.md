@@ -86,9 +86,8 @@ For more details, refer to the Front-End README.
 
 ## General Information
 
-**Author:** Kamil Myśliwiec  
-**Website:** [https://nestjs.com](https://nestjs.com)  
-**Twitter:** [@nestframework](https://twitter.com/nestframework)
+**Author:** Ahemd Mansour
+**Email:** [ahmed.mansour10257@gmail.com](ahmed.mansour10257@gmail.com)
 
 ### License
 
