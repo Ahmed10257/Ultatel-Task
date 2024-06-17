@@ -6,15 +6,16 @@ import { RegisterComponent } from './Components/register/register.component';
 import { SearchAndFilterComponent } from './Components/search-and-filter/search-and-filter.component';
 import { CoursesComponent } from './Components/courses/courses.component';
 import { GradesComponent } from './Components/grades/grades.component';
+import { authGuard } from './Guards/auth.guard';
 
 
 export const routes: Routes = [
 
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'home/courses', component: CoursesComponent },
-  { path: 'home', component: HomeComponent },
+  { path: 'home/courses', component: CoursesComponent, canActivate: [authGuard] },
+  { path: 'home', component: HomeComponent, canActivate: [authGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'search', component: SearchAndFilterComponent },
-  { path: 'home/grades', component: GradesComponent },
+  { path: 'home/grades', component: GradesComponent, canActivate: [authGuard] },
 ];
