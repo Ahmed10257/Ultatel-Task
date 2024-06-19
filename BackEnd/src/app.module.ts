@@ -18,27 +18,16 @@ require('dotenv').config({
 });
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        type: 'mysql',
-        host: configService.get<string>('DATABASE_HOST'),
-        port: configService.get<number>('DATABASE_PORT'),
-        username: configService.get<string>('DATABASE_USERNAME'),
-        password: configService.get<string>('DATABASE_PASSWORD'),
-        database: configService.get<string>('DATABASE_NAME'),
-        entities: [Student, User, Course, Grade],
-        synchronize: false,
-      }
-
-      ),
-
-      inject: [ConfigService],
-    }),
+  imports: [TypeOrmModule.forRoot({
+    type: 'mysql',
+    host: process.env.DATABASE_HOST,
+    port: +process.env.DATABASE_PORT,
+    username: process.env.DATABASE_USERNAME,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_NAME,
+    entities: [Student, User, Course, Grade],
+    synchronize: true,
+  }),
     AuthModule,
     UsersModule,
     StudentsModule,
