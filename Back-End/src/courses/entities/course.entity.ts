@@ -13,6 +13,6 @@ export class Course {
     @Column()
     courseGrade: Number;
 
-    @OneToMany(() => Grade, (grade) => grade.course)
+    @OneToMany(() => Grade, (grade) => grade.course, { cascade: true })
     grades: Grade[];
 }

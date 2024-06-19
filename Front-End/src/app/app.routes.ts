@@ -16,6 +16,7 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [authGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'search', component: SearchAndFilterComponent },
+  { path: 'search', component: SearchAndFilterComponent, canActivate: [authGuard] },
   { path: 'home/grades', component: GradesComponent, canActivate: [authGuard] },
+
 ];

@@ -10,6 +10,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { OnInit } from '@angular/core';
 import { Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
+import { timeInterval } from 'rxjs';
 
 
 @Component({
@@ -46,31 +47,38 @@ export class LoginComponent implements OnInit {
     this.email = this.loginForm.controls['email'].value;
     this.password = this.loginForm.controls['password'].value;
 
+
     if (this.loginForm.valid) {
       //Sending the credentials to the server
       this.authService.login(this.email, this.password).subscribe((response: any) => {
         /*If the response contains an access token, the user is logged in successfully
         and will be redirected to the home page*/
-        if (response.access_token) {
-          this.router.navigate(['/home'], { replaceUrl: true }).then(() => {
-            window.location.reload();
-          });
-          Swal.fire({
-            icon: 'success',
-            title: 'Welcome!',
-            text: 'You have successfully logged in',
-          });
+        if (response.statusCode == 200) {
           //Saving the token in the local storage
           localStorage.setItem('UserToken', response.access_token);
-          //In case the credentials are wrong, an error message will be displayed
+          //In case the credentials are correct, redirect to home page
+          this.router.navigate(['/home'], { replaceUrl: true }).then(() => {
+            //Display success message after the home page is loaded
+            Swal.fire({
+              icon: 'success',
+              title: 'Welcome!',
+              text: 'You have successfully logged in',
+            });
+          });
         } else {
-          console.error('There was an error!',);
+          //In case the credentials are wrong, display error message
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'Wrong Credentials! Please try again',
           });
         }
+      }, () => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Wrong Credentials! Please try again',
+        });
       });
     }
   }

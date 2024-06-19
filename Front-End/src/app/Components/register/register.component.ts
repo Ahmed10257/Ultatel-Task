@@ -116,9 +116,15 @@ export class RegisterComponent {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'There was an error!',
+            text: 'This email is already registered! Please try again!',
           });
         }
+      });
+    } else if (!this.passwordValid) {
+      //Displaying the warning message
+      Swal.fire({
+        icon: 'warning',
+        title: 'Password not strong enough! Please try again!',
       });
     }
   }

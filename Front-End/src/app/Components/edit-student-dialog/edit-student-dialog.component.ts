@@ -98,7 +98,6 @@ export class EditStudentDialogComponent implements OnInit {
         gender: this.EditStudentForm.controls['gender'].value,
         country: this.EditStudentForm.controls['country'].value,
       };
-      console.log(this.student);
 
       this.studentsService.updateStudent(this.student).subscribe((date) => {
         console.log(date);

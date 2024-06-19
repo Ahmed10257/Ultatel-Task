@@ -50,6 +50,9 @@
                 class="form-control fs-5"
                 id="password"
                 placeholder="********"
+                (input)="
+                  validatingPasswords(registerForm.controls['password'].value)
+                "
               />
               @if (!isLengthValid || !hasUppercaseChar || !hasLowercaseChar ||
               !hasSpecialChar || !hasNumber || passwordValid) {

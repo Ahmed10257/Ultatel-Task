@@ -19,8 +19,8 @@ export class CoursesService {
     return this.courseRepository.find();
   }
 
-  findOne(id: any): Promise<Course> {
-    return this.courseRepository.findOne(id);
+  findOne(id: number): Promise<Course> {
+    return this.courseRepository.findOneBy({ id });
   }
 
   async findOneByName(courseName: string): Promise<Course> {

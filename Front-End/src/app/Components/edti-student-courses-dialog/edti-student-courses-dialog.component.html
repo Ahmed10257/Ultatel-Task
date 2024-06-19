@@ -7,25 +7,36 @@
     <div class="d-flex flex-row justify-content-around">
       <div class="d-flex flex-column align-items-center">
         <div class="fs-5 fw-medium mb-3">Students</div>
-        <p-dropdown
-          formControlName="student"
+        <p-listbox
           [options]="students"
+          formControlName="student"
           optionLabel="displayName"
           placeholder="Select a Student"
-        >
-          <ng-template let-student pTemplate="item">
+          [filter]="true"
+          [style]="{ width: '15rem' }"
+          [listStyle]="{ 'max-height': '300px' }"
+          ><ng-template let-student pTemplate="item">
             {{ student.firstName }} {{ student.lastName }}
-          </ng-template>
-        </p-dropdown>
+          </ng-template></p-listbox
+        >
       </div>
       <!-- Selecting the Course -->
       <div class="d-flex flex-column align-items-center">
         <div class="fs-5 fw-medium mb-3">Courses</div>
-        <p-dropdown
+        <!-- <p-dropdown
           formControlName="course"
           [options]="courses"
           optionLabel="courseName"
           placeholder="Select a Course"
+        /> -->
+        <p-listbox
+          [options]="courses"
+          formControlName="course"
+          optionLabel="courseName"
+          placeholder="Select a Course"
+          [filter]="true"
+          [style]="{ width: '15rem' }"
+          [listStyle]="{ 'max-height': '300px' }"
         />
       </div>
       <!-- Setting the Grade -->
@@ -37,15 +48,15 @@
           class="form-control"
           placeholder="Enter Grade"
         />
+        <div class="d-flex justify-content-center mt-4">
+          <button
+            class="btn btn-success fs-5 fw-medium w-100 h-100"
+            (click)="assignCourse()"
+          >
+            Assign Course
+          </button>
+        </div>
       </div>
-    </div>
-    <div class="d-flex justify-content-center mt-4">
-      <button
-        class="btn btn-success fs-5 fw-medium w-25"
-        (click)="assignCourse()"
-      >
-        Assign Course
-      </button>
     </div>
   </form>
 </div>

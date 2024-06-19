@@ -86,7 +86,7 @@ For more details, refer to the Front-End README.
 
 ## General Information
 
-**Author:** Ahemd Mansour
+**Author:** Ahemd Mansour  
 **Email:** [ahmed.mansour10257@gmail.com](ahmed.mansour10257@gmail.com)
 
 ### License

@@ -87,23 +87,36 @@ export class CoursesComponent implements OnInit {
   }
 
   deleteCourse(id: any) {
-    this.courseService.deleteCourse(id).subscribe({
-      next: (data) => {
-        console.log(data);
-        this.courses = this.courses.filter((student: any) => student.id !== id);
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.courseService.deleteCourse(id).subscribe({
+          next: (data) => {
+            console.log(data);
+            this.courses = this.courses.filter((course: any) => course.id !== id);
 
-        Swal.fire({
-          icon: 'success',
-          title: 'Course Deleted Successfully',
-        });
-      },
-      error: (error) => {
-        console.error('There was an error!', error);
+            Swal.fire(
+              'Deleted!',
+              'Your course has been deleted.',
+              'success'
+            );
+          },
+          error: (error) => {
+            console.error('There was an error!', error);
 
-        Swal.fire({
-          icon: 'error',
-          title: 'Error Deleting Course',
-          text: "There are Students enrolled in this course. You can't delete it.",
+            Swal.fire({
+              icon: 'error',
+              title: 'Error Deleting Course',
+              text: "There are Students enrolled in this course. You can't delete it.",
+            });
+          }
         });
       }
     });

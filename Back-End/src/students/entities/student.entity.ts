@@ -30,7 +30,7 @@ export class Student {
     @Column()
     country: string;
 
-    @OneToMany(() => Grade, (grade) => grade.student)
+    @OneToMany(() => Grade, (grade) => grade.student, { cascade: true })
     grades: Grade[];
 
 }

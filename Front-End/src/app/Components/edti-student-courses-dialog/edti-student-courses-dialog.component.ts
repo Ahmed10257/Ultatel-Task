@@ -9,11 +9,12 @@ import { GradesService } from '../../Services/grades/grades.service';
 import { StudentsService } from '../../Services/Students/students.service';
 import { DropdownModule } from 'primeng/dropdown';
 import Swal from 'sweetalert2';
+import { ListboxModule } from 'primeng/listbox';
 
 @Component({
   selector: 'app-edti-student-courses-dialog',
   standalone: true,
-  imports: [DropdownModule, ReactiveFormsModule],
+  imports: [DropdownModule, ReactiveFormsModule, ListboxModule],
   templateUrl: './edti-student-courses-dialog.component.html',
   styleUrl: './edti-student-courses-dialog.component.css'
 })

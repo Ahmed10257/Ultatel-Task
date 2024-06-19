@@ -51,8 +51,8 @@
           <th pSortableColumn="courseName" style="min-width: 5rem">
             Name <p-sortIcon field="courseName" />
           </th>
-          <th pSortableColumn="courseGrade">
-            Grade <p-sortIcon field="courseGrade" />
+          <th pSortableColumn="courseGrade" style="width: 12rem">
+            Course Grade <p-sortIcon field="courseGrade" />
           </th>
           <th>Actions</th>
         </tr>
@@ -73,7 +73,7 @@
           <td>
             {{ course.courseName }}
           </td>
-          <td>
+          <td class="text-center">
             {{ course.courseGrade }}
           </td>
           <td>

@@ -1,4 +1,3 @@
-
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -13,6 +12,7 @@ import { CoursesModule } from './courses/courses.module';
 import { GradesModule } from './grades/grades.module';
 import { Grade } from './grades/entities/grade.entity';
 
+
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'mysql',
@@ -23,6 +23,7 @@ import { Grade } from './grades/entities/grade.entity';
     password: '',
     entities: [Student, User, Course, Grade],
     synchronize: false,
+
   }), AuthModule, UsersModule, StudentsModule, CoursesModule, GradesModule],
 
   controllers: [AppController],

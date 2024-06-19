@@ -87,22 +87,36 @@ export class GradesComponent implements OnInit {
   }
 
   deleteGrade(id: any) {
-    this.gradeService.deleteGrade(id).subscribe({
-      next: (data) => {
-        console.log(data);
-        this.grades = this.grades.filter((grade: any) => grade.id !== id);
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Proceed with deletion only if confirmed
+        this.gradeService.deleteGrade(id).subscribe({
+          next: (data) => {
+            console.log(data);
+            this.grades = this.grades.filter((grade: any) => grade.id !== id);
 
-        Swal.fire({
-          icon: 'success',
-          title: 'Grade Deleted Successfully',
-        });
-      },
-      error: (error) => {
-        console.error('There was an error!', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'There was an error!',
+            Swal.fire({
+              icon: 'success',
+              title: 'Grade Deleted Successfully',
+              showLoaderOnConfirm: true,
+            });
+          },
+          error: (error) => {
+            console.error('There was an error!', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'There was an error!',
+            });
+          }
         });
       }
     });

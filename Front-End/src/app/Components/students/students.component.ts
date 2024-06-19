@@ -29,7 +29,7 @@ import { AvatarModule } from 'primeng/avatar';
   providers: [StudentsService]
 })
 
-export class StudentsComponent implements OnChanges {
+export class StudentsComponent implements OnInit {
   constructor(private studentService: StudentsService, private dialog: MatDialog, private router: Router,
     private http: HttpClient) { }
 
@@ -39,8 +39,8 @@ export class StudentsComponent implements OnChanges {
 
   @Input() studentsFromHome: any;
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.studentsFromHome = this.studentsFromHome;
+  ngOnInit() {
+    this.students = this.studentsFromHome;
   }
 
   // a method to calculate the age of the student based on the birthdate
@@ -65,29 +65,46 @@ export class StudentsComponent implements OnChanges {
           studentFromHome: student,
         },
       });
-    });
 
+      dialog.afterClosed().subscribe(result => {
+        this.studentService.getStudents().subscribe((data) => {
+          this.studentsFromHome = data;
+        });
+      }
+      );
+
+    });
   }
 
   // a method to delete the student
   deleteStudent(id: any) {
-    this.studentService.deleteStudent(id).subscribe({
-      next: (data) => {
-        console.log(data);
-        this.studentsFromHome = this.studentsFromHome.filter((student: any) => student.id !== id);
-
-        Swal.fire({
-          icon: 'success',
-          title: 'Student Deleted Successfully',
-        });
-      },
-      error: (error) => {
-        console.error('There was an error!', error);
-
-        Swal.fire({
-          icon: 'error',
-          title: 'Error Deleting Student',
-          text: 'Please try again later.',
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.studentService.deleteStudent(id).subscribe({
+          next: (data) => {
+            this.studentsFromHome = this.studentsFromHome.filter((student: any) => student.id !== id);
+            Swal.fire(
+              'Deleted!',
+              'The student has been deleted.',
+              'success'
+            );
+          },
+          error: (error) => {
+            console.error('There was an error!', error);
+            Swal.fire(
+              'Failed!',
+              'The student could not be deleted. Please try again later.',
+              'error'
+            );
+          }
         });
       }
     });
