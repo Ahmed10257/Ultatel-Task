@@ -9,7 +9,7 @@ export class CoursesService {
 
   constructor(private http: HttpClient) { }
 
-  private API_URL = 'http://localhost:3000/courses';
+  private API_URL = 'ultatel-task-production-6661.up.railway.app/courses';
 
   getCourses() {
     // Get the token from the local storage

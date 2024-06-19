@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class UsersService {
 
-  private API_URL = 'http://localhost:3000/users';
+  private API_URL = 'ultatel-task-production-6661.up.railway.app/users';
   constructor(private http: HttpClient) { }
 
   getUsers() {
