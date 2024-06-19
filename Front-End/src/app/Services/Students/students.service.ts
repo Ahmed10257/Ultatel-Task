@@ -7,7 +7,7 @@ import { HttpHeaders } from '@angular/common/http';
 })
 export class StudentsService {
 
-  private API_URL = 'ultatel-task-production-6661.up.railway.app/students';
+  private API_URL = 'https://ultatel-task-production-6661.up.railway.app//students';
 
   constructor(private http: HttpClient) { }
 

@@ -9,7 +9,7 @@ export class GradesService {
 
   constructor(private http: HttpClient) { }
 
-  private API_URL = 'ultatel-task-production-6661.up.railway.app/grades';
+  private API_URL = 'https://ultatel-task-production-6661.up.railway.app//grades';
 
   getGrades() {
     // Get the token from the local storage
