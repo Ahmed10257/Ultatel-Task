@@ -10,7 +10,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  private API_URL = 'ultatel-task-production-6661.up.railway.app/auth';
+  private API_URL = 'https://ultatel-task-production-6661.up.railway.app/auth';
 
   login(email: string, password: string): Observable<any> {
     // Send a POST request to the API endpoint with the email, password, and withCredentials set to true
@@ -20,6 +20,12 @@ export class AuthService {
   }
 
   register(user: any): Observable<any> {
+    console.log(user);
+    console.log(`${this.API_URL}/register`);
+    console.log(this.http.post(`${this.API_URL}/register`, user));
+
+
+
     return this.http.post(`${this.API_URL}/register`, user);
   }
 
