@@ -59,7 +59,7 @@ export class StudentsController {
   @ApiOperation({ summary: 'Search for students' })
   @ApiResponse({ status: 200, description: 'The students have been successfully fetched.' })
   @ApiResponse({ status: 404, description: 'Students not found.' })
-  search(@Param('search') search: string, @Param('fromAge') fromAge: string, @Param('toAge') toAge: string, @Param('country') gender: string, @Param('country') country: string) {
+  search(@Param('search') search: string, @Param('fromAge') fromAge: string, @Param('toAge') toAge: string, @Param('gender') gender: string, @Param('country') country: string) {
     return this.studentsService.search(search, +fromAge, +toAge, gender, country);
   }
 }

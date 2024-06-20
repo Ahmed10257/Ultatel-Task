@@ -68,6 +68,8 @@ export class SearchAndFilterComponent implements OnInit {
 
     this.studentService.searchStudents(searchByName, searchByLowerAge, searchByUpperAge, searchByGender, searchByCountry).subscribe((data: any) => {
       this.students = data;
+      console.log(data);
+
       this.sendStudents();
     },
       (error: any) => {

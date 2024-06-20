@@ -62,7 +62,9 @@ export class StudentsService {
     // Add the token to the headers
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     // Send a GET request to the API endpoint with the headers
-    return this.http.get(`${this.API_URL}/search/${search}/${fromAge}/${toAge}/${gender}/${country}`, { headers });
+    const queryParams = `?search=${encodeURIComponent(search)}&fromAge=${fromAge}&toAge=${toAge}&gender=${gender}&country=${country}`;
+
+    return this.http.get(`${this.API_URL}${queryParams}`, { headers });
   }
 
 }
