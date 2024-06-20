@@ -12,7 +12,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   //Configure the CORS policy to allow requests from the Angular application
   app.enableCors({
-    origin: ['http://localhost:4200', 'https://ultatel-task-4zfyvij69-ahmed10257s-projects.vercel.app'],
+    origin: ['http://localhost:4200', 'https://ultatel-task-4zfyvij69-ahmed10257s-projects.vercel.app', 'https://ultatel-task-delta.vercel.app'],
     credentials: true,
   });
   //Configure Swagger
