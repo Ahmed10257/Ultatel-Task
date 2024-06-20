@@ -82,10 +82,10 @@ export class SearchAndFilterComponent implements OnInit {
       if (searchByUpperAge && this.calculateAge(student.birthDate) > searchByUpperAge) {
         match = false;
       }
-      if (searchByGender && student.gender.toLowerCase() !== searchByGender.toLowerCase()) {
+      if (searchByGender && student.gender.toLowerCase() !== searchByGender.toLowerCase() && searchByGender !== 'Choose') {
         match = false;
       }
-      if (searchByCountry && student.country.toLowerCase() !== searchByCountry.toLowerCase()) {
+      if (searchByCountry && student.country.toLowerCase() !== searchByCountry.toLowerCase() && searchByCountry !== 'Choose') {
         match = false;
       }
       console.log(match);
