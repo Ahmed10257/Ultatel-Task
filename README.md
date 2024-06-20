@@ -1,10 +1,30 @@
 # Ultatel Task Project
 
-This repository contains the Ultatel Task project, which is divided into two main parts: the Back-End and the Front-End. Each part is designed to work together to provide a comprehensive solution for the project's requirements.
+This repository contains the Ultatel Task project, it's a simple learning managemenet system, designed to add students, add courses, and assign courses to students while giving them a grade for that course.
+
+### Students Page
+
+![Screenshot of Student Page](https://res.cloudinary.com/dh7osyxvl/image/upload/v1718920885/Ultatel/1852b421-5d0b-450c-ad0e-8b9acaac17f6.png)
+
+### Courses Page
+
+![Screenshot of Student Page](https://res.cloudinary.com/dh7osyxvl/image/upload/v1718920990/Ultatel/cc700961-d984-4fb0-8017-f5396234ac97.png)
+
+### Grades Page
+
+![Screenshot of Student Page](https://res.cloudinary.com/dh7osyxvl/image/upload/v1718921086/Ultatel/935764d5-fe16-4909-8204-f6b88e2637f7.png)
+
+The Repository is divided into two main parts: the Back-End and the Front-End. Each part is designed to work together to provide a comprehensive solution for the project's requirements.
 
 ## Back-End
 
 The Back-End of the project is built using the [NestJS](https://nestjs.com/) framework, a progressive Node.js framework for building efficient and scalable server-side applications.
+
+### API Documentation
+
+The APIs are documented using Swagger. You can access the APIs documentation at the following link:
+
+[Swagger API Documentation Link](https://ultatel-task-production-6661.up.railway.app/api)
 
 ### Installation
 
