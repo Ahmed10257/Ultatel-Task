@@ -92,15 +92,17 @@ export class RegisterComponent {
 
   onSubmit(e: Event) {
     e.preventDefault();
+
     //Checking the validity of the form fields to display the error messages
     this.fullNameValid = this.registerForm.controls['fullName'].valid;
     this.emailValid = this.registerForm.controls['email'].valid;
     this.passwordValid = this.validatingPasswords(this.registerForm.controls['password'].value);
     this.passwordMatch = this.registerForm.controls['password'].value === this.registerForm.controls['confirmPassword'].value;
+
     //Checking if the form is valid to submit the data
-    if (this.registerForm.valid && this.passwordValid) {
+    if (this.registerForm.valid && this.passwordValid && this.passwordMatch) {
       this.authService.register(this.registerForm.value).subscribe((data) => {
-        console.log(data);
+
         //Displaying the success message
         Swal.fire({
           icon: 'success',

@@ -38,18 +38,4 @@ export class StudentsService {
     await this.studentRepository.delete(id);
   }
 
-  calculateBirthDate(age: number): Date {
-    const today = new Date();
-    return new Date(today.getFullYear() - age, today.getMonth(), today.getDate());
-  }
-
-  async search(search: string, fromAge: number, toAge: number, gender: string, country: string): Promise<Student[]> {
-    return this.studentRepository.createQueryBuilder('student')
-      .where('student.firstName LIKE :search OR student.email LIKE :search', { search: `%${search}%` })
-      .andWhere('student.birthDate >= :fromAge', { fromAge: this.calculateBirthDate(fromAge) })
-      .andWhere('student.birthDate <= :toAge', { toAge: this.calculateBirthDate(toAge) })
-      .andWhere('student.gender= :gender', { gender })
-      .andWhere('student.country = :country', { country })
-      .getMany();
-  }
 }

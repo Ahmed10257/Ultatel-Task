@@ -55,11 +55,4 @@ export class StudentsController {
     return this.studentsService.remove(+id);
   }
 
-  @Get('search/:search/:fromAge/:toAge/:gender/:country')
-  @ApiOperation({ summary: 'Search for students' })
-  @ApiResponse({ status: 200, description: 'The students have been successfully fetched.' })
-  @ApiResponse({ status: 404, description: 'Students not found.' })
-  search(@Param('search') search: string, @Param('fromAge') fromAge: string, @Param('toAge') toAge: string, @Param('gender') gender: string, @Param('country') country: string) {
-    return this.studentsService.search(search, +fromAge, +toAge, gender, country);
-  }
 }

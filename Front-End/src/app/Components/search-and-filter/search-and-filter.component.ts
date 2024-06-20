@@ -57,24 +57,42 @@ export class SearchAndFilterComponent implements OnInit {
     return age;
   }
 
-
-
   search() {
-    const searchByName = this.searchForm.controls.searchByName.value || '';
-    const searchByLowerAge = Number(this.searchForm.controls.searchByLowerAge.value) || 0;
-    const searchByUpperAge = Number(this.searchForm.controls.searchByUpperAge.value) || 0;
-    const searchByGender = this.searchForm.controls.searchByGender.value || '';
-    const searchByCountry = this.searchForm.controls.searchByCountry.value || '';
+    const searchByName = this.searchForm.controls.searchByName.value;
+    const searchByLowerAge = Number(this.searchForm.controls.searchByLowerAge.value);
+    const searchByUpperAge = Number(this.searchForm.controls.searchByUpperAge.value);
+    const searchByGender = this.searchForm.controls.searchByGender.value;
+    const searchByCountry = this.searchForm.controls.searchByCountry.value;
 
-    this.studentService.searchStudents(searchByName, searchByLowerAge, searchByUpperAge, searchByGender, searchByCountry).subscribe((data: any) => {
+    console.log(searchByName, searchByLowerAge, searchByUpperAge, searchByGender, searchByCountry);
+
+    this.studentService.getStudents().subscribe((data: any) => {
       this.students = data;
-      console.log(data);
+    });
 
-      this.sendStudents();
-    },
-      (error: any) => {
-        console.error(error);
-      });
+    this.students = this.students.filter((student: any) => {
+      let match = true;
+      let fullName = student.firstName + " " + student.lastName;
+      if (searchByName && fullName.toLowerCase().indexOf(searchByName.toLowerCase()) === -1) {
+        match = false;
+      }
+      if (searchByLowerAge && this.calculateAge(student.birthDate) < searchByLowerAge) {
+        match = false;
+      }
+      if (searchByUpperAge && this.calculateAge(student.birthDate) > searchByUpperAge) {
+        match = false;
+      }
+      if (searchByGender && student.gender.toLowerCase() !== searchByGender.toLowerCase()) {
+        match = false;
+      }
+      if (searchByCountry && student.country.toLowerCase() !== searchByCountry.toLowerCase()) {
+        match = false;
+      }
+      console.log(match);
+
+      return match;
+    });
+    this.sendStudents();
   }
 
   reset() {
