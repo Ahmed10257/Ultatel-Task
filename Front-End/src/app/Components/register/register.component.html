@@ -60,33 +60,23 @@
                 <div class="mb-3 fw-medium">{{ passwordMessage }}</div>
                 Password must be at least
                 <span
-                  [ngClass]="
-                    isLengthValid ? 'text-success fw-medium' : 'text-danger'
-                  "
+                  ngClass="isLengthValid ? 'text-success fw-medium' : 'text-danger'"
                   >8 characters long </span
                 >and contain at least
                 <span
-                  [ngClass]="
-                    hasUppercaseChar ? 'text-success fw-medium' : 'text-danger'
-                  "
+                  ngClass="hasUppercaseChar ? 'text-success fw-medium' : 'text-danger'"
                   >1 uppercase letter</span
                 >,
                 <span
-                  [ngClass]="
-                    hasLowercaseChar ? 'text-success fw-medium' : 'text-danger'
-                  "
+                  ngClass="hasLowercaseChar ? 'text-success fw-medium' : 'text-danger'"
                   >1 lowercase letter</span
                 >,
                 <span
-                  [ngClass]="
-                    hasNumber ? 'text-success fw-medium' : 'text-danger'
-                  "
+                  ngClass="hasNumber ? 'text-success fw-medium' : 'text-danger'"
                   >1 number</span
                 >, and
                 <span
-                  [ngClass]="
-                    hasSpecialChar ? 'text-success fw-medium' : 'text-danger'
-                  "
+                  ngClass="hasSpecialChar ? 'text-success fw-medium' : 'text-danger'"
                   >1 special character</span
                 >
               </div>
@@ -109,7 +99,7 @@
             </div>
             <button
               type="submit"
-              class="btn btn-primary btn-block w-25 fs-3"
+              class="btn btn-primary btn-block w-auto fs-3"
               (click)="onSubmit($event)"
             >
               Register

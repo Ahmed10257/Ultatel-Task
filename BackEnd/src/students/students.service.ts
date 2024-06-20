@@ -37,4 +37,14 @@ export class StudentsService {
   async remove(id: number): Promise<void> {
     await this.studentRepository.delete(id);
   }
+
+  async search(search: string, fromAge: number, toAge: number, gender: string, country: string): Promise<Student[]> {
+    return this.studentRepository.createQueryBuilder('student')
+      .where('student.name LIKE :search OR student.email LIKE :search', { search: `%${search}%` })
+      .andWhere('student.age >= :fromAge', { fromAge })
+      .andWhere('student.age <= :toAge', { toAge })
+      .andWhere('student.gender= :gender', { gender })
+      .andWhere('student.country = :country', { country })
+      .getMany();
+  }
 }

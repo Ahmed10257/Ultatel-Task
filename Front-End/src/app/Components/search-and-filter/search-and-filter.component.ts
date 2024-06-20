@@ -3,9 +3,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StudentsService } from '../../Services/Students/students.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Output, EventEmitter } from '@angular/core';
-import { OnInit, OnChanges } from '@angular/core';
+import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-search-and-filter',
@@ -16,7 +16,7 @@ import { OnInit, OnChanges } from '@angular/core';
   providers: [StudentsService]
 })
 export class SearchAndFilterComponent implements OnInit {
-  constructor(private studentService: StudentsService, private http: HttpClient) { }
+  constructor(private studentService: StudentsService) { }
 
   searchForm = new FormGroup({
     searchByName: new FormControl(''),
@@ -33,16 +33,12 @@ export class SearchAndFilterComponent implements OnInit {
   ngOnInit() {
     this.studentService.getStudents().subscribe((data: any) => {
       this.students = data;
-      console.log(this.students);
       this.sendStudents();
-
     },
       (error: any) => {
         console.error(error);
       });
     this.sendStudents();
-    console.log(this.students);
-
   }
 
   sendStudents() {
@@ -64,39 +60,19 @@ export class SearchAndFilterComponent implements OnInit {
 
 
   search() {
-    const searchByName = this.searchForm.controls.searchByName.value;
-    const searchByLowerAge = Number(this.searchForm.controls.searchByLowerAge.value);
-    const searchByUpperAge = Number(this.searchForm.controls.searchByUpperAge.value);
-    const searchByGender = this.searchForm.controls.searchByGender.value;
-    const searchByCountry = this.searchForm.controls.searchByCountry.value;
+    const searchByName = this.searchForm.controls.searchByName.value || '';
+    const searchByLowerAge = Number(this.searchForm.controls.searchByLowerAge.value) || 0;
+    const searchByUpperAge = Number(this.searchForm.controls.searchByUpperAge.value) || 0;
+    const searchByGender = this.searchForm.controls.searchByGender.value || '';
+    const searchByCountry = this.searchForm.controls.searchByCountry.value || '';
 
-    console.log(searchByName, searchByLowerAge, searchByUpperAge, searchByGender, searchByCountry);
-    console.log(this.searchForm.value);
-
-
-    this.students = this.students.filter((student: any) => {
-      let match = true;
-      let fullName = student.firstName + " " + student.lastName;
-      if (searchByName && fullName.toLowerCase().indexOf(searchByName.toLowerCase()) === -1) {
-        match = false;
-      }
-      if (searchByLowerAge && this.calculateAge(student.birthDate) < searchByLowerAge) {
-        match = false;
-      }
-      if (searchByUpperAge && this.calculateAge(student.birthDate) > searchByUpperAge) {
-        match = false;
-      }
-      if (searchByGender && student.gender.toLowerCase() !== searchByGender.toLowerCase()) {
-        match = false;
-      }
-      if (searchByCountry && student.country.toLowerCase() !== searchByCountry.toLowerCase()) {
-        match = false;
-      }
-      console.log(match);
-
-      return match;
-    });
-    this.sendStudents();
+    this.studentService.searchStudents(searchByName, searchByLowerAge, searchByUpperAge, searchByGender, searchByCountry).subscribe((data: any) => {
+      this.students = data;
+      this.sendStudents();
+    },
+      (error: any) => {
+        console.error(error);
+      });
   }
 
   reset() {

@@ -26,7 +26,7 @@ require('dotenv').config({
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME,
     entities: [Student, User, Course, Grade],
-    synchronize: true,
+    synchronize: false,
   }),
     AuthModule,
     UsersModule,

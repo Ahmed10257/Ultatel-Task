@@ -32,8 +32,6 @@ export class EdtiStudentCoursesDialogComponent implements OnInit {
   ngOnInit(): void {
     this.courseService.getCourses().subscribe((data) => {
       this.courses = data;
-      console.log(this.courses);
-
     });
 
     this.studentService.getStudents().subscribe((data) => {
@@ -42,8 +40,6 @@ export class EdtiStudentCoursesDialogComponent implements OnInit {
         ...student,
         displayName: `${student.firstName} ${student.lastName}` // Combining firstName and lastName into displayName
       }));
-      console.log(this.students);
-
     });
 
     this.assignCourseForm = new FormGroup({
@@ -56,7 +52,7 @@ export class EdtiStudentCoursesDialogComponent implements OnInit {
   assignCourse() {
     const courseId = this.assignCourseForm.controls['course'].value.id;
     const studentId = this.assignCourseForm.controls['student'].value.id;
-    const grade = this.assignCourseForm.controls['grade'].value;
+    const grade = this.assignCourseForm.controls['grade'].value || 0;
 
     const courseData = {
       courseId: courseId,
@@ -65,7 +61,6 @@ export class EdtiStudentCoursesDialogComponent implements OnInit {
     };
 
     this.gradeService.createGrade(courseData).subscribe((data) => {
-      console.log(data);
       this.dialogref.close();
       Swal.fire({
         icon: 'success',

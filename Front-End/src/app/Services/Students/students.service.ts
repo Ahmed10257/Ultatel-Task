@@ -56,4 +56,13 @@ export class StudentsService {
     return this.http.delete(`${this.API_URL}/${id}`, { headers });
   }
 
+  searchStudents(search: string, fromAge: number, toAge: number, gender: string, country: string) {
+    // Get the token from the local storage
+    const token = localStorage.getItem('UserToken');
+    // Add the token to the headers
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    // Send a GET request to the API endpoint with the headers
+    return this.http.get(`${this.API_URL}/search/${search}/${fromAge}/${toAge}/${gender}/${country}`, { headers });
+  }
+
 }

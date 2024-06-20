@@ -33,7 +33,7 @@ export class RegisterComponent {
   }
   registerForm = new FormGroup({
     fullName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}')]),
     password: new FormControl('', Validators.required),
     confirmPassword: new FormControl('', Validators.required)
   });
@@ -99,34 +99,54 @@ export class RegisterComponent {
     this.passwordMatch = this.registerForm.controls['password'].value === this.registerForm.controls['confirmPassword'].value;
     //Checking if the form is valid to submit the data
     if (this.registerForm.valid && this.passwordValid) {
-      this.authService.register(this.registerForm.value).subscribe({
-        next: (data) => {
-          console.log(data);
-          //Displaying the success message
-          Swal.fire({
-            icon: 'success',
-            title: 'Successfully Registered!',
-            showConfirmButton: true,
-          });
-          this.router.navigate(['/login']);
-        },
-        error: (error) => {
-          console.error('There was an error!', error);
-          //Displaying the error message
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'This email is already registered! Please try again!',
-          });
-        }
+      this.authService.register(this.registerForm.value).subscribe((data) => {
+        console.log(data);
+        //Displaying the success message
+        Swal.fire({
+          icon: 'success',
+          title: 'Successfully Registered!',
+          showConfirmButton: true,
+        });
+        this.router.navigate(['/login']);
+      }, (error) => {
+        console.error('There was an error!', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Email Already Registered!',
+          text: 'This email is already registered. Please try again with a different email.',
+        });
+      });
+    } else if (!this.fullNameValid) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Invalid Name!',
+        text: 'Please enter a valid name.',
+      });
+    } else if (!this.emailValid) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Invalid Email!',
+        text: 'Please enter a valid email address.',
       });
     } else if (!this.passwordValid) {
-      //Displaying the warning message
       Swal.fire({
-        icon: 'warning',
-        title: 'Password not strong enough! Please try again!',
+        icon: 'error',
+        title: 'Password is Inavlid!',
+        text: 'Your password must contain at least 8 characters, one lowercase letter, one uppercase letter, one number, and one special character.',
+      });
+
+    } else if (!this.passwordMatch) {
+      Swal.fire({
+        icon: 'error',
+        title: "Password doesn't match!",
+        text: "Your password doesn't Match.",
+      });
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'An error occurred. Please try again later.',
       });
     }
   }
-
 }
