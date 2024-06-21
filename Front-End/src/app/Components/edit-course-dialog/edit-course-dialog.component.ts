@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import { CoursesService } from '../../Services/courses/courses.service';
 import { FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-edit-course-dialog',
@@ -43,7 +43,6 @@ export class EditCourseDialogComponent {
 
     if (this.courseNameValid && this.courseGradeValid) {
       this.courseService.editCourse(this.course).subscribe((data) => {
-        console.log(data);
         this.dialog.close();
         Swal.fire({
           position: 'center',

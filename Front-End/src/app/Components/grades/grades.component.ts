@@ -41,8 +41,6 @@ export class GradesComponent implements OnInit {
   ngOnInit() {
     this.gradeService.getGrades().subscribe((data) => {
       this.grades = data;
-      console.log(this.grades);
-
     });
   }
 

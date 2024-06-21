@@ -61,7 +61,6 @@ export class EditStudentDialogComponent implements OnInit {
     this.gradeService.getStudentGrades(id).subscribe((data) => {
       this.courses = data;
       this.courses = this.courses.map((course: any) => { course.name = course.courseName; return course; });
-      console.log(this.courses);
       const dialog = this.dialog.open(EdtiStudentCoursesDialogComponent, {
         width: '1200px',
         height: '600px',
@@ -100,7 +99,6 @@ export class EditStudentDialogComponent implements OnInit {
       };
 
       this.studentsService.updateStudent(this.student).subscribe((date) => {
-        console.log(date);
         this.dialogref.close();
         Swal.fire({
           icon: 'success',
@@ -114,8 +112,6 @@ export class EditStudentDialogComponent implements OnInit {
       );
 
     } else {
-      console.log(this.EditStudentForm.value);
-
       Swal.fire({
         icon: 'warning',
         title: 'Please fill all the fields',

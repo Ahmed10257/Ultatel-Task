@@ -6,11 +6,9 @@ import { Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../Services/Authentication/auth.service';
 import Swal from 'sweetalert2';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { OnInit } from '@angular/core';
-import { Output } from '@angular/core';
-import { EventEmitter } from '@angular/core';
-import { timeInterval } from 'rxjs';
+
 
 
 @Component({

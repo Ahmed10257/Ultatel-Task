@@ -1,4 +1,4 @@
-import { Component, OnChanges } from '@angular/core';
+import { Component } from '@angular/core';
 import { StudentsService } from '../../Services/Students/students.service';
 import { CommonModule } from '@angular/common';
 import { OnInit } from '@angular/core';
@@ -9,9 +9,8 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { EditStudentDialogComponent } from '../edit-student-dialog/edit-student-dialog.component';
 import { HttpClient } from '@angular/common/http';
-import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Input } from '@angular/core';
-import { SimpleChanges } from '@angular/core';
 import { RippleModule } from 'primeng/ripple';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';

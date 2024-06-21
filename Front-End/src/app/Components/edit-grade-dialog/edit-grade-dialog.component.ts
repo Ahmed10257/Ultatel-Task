@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
@@ -42,7 +41,6 @@ export class EditGradeDialogComponent {
       this.totalValid
     ) {
       this.gradeService.editGrade(this.grade).subscribe((data) => {
-        console.log(data);
         this.dialog.close();
         Swal.fire({
           position: 'center',

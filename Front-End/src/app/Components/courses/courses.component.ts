@@ -99,7 +99,6 @@ export class CoursesComponent implements OnInit {
       if (result.isConfirmed) {
         this.courseService.deleteCourse(id).subscribe({
           next: (data) => {
-            console.log(data);
             this.courses = this.courses.filter((course: any) => course.id !== id);
 
             Swal.fire(

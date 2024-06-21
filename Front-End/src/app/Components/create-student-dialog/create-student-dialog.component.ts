@@ -53,9 +53,6 @@ export class CreateStudentDialogComponent {
     this.genderValid = this.AddStudentForm.controls['gender'].valid;
     this.countryValid = this.AddStudentForm.controls['country'].valid;
 
-    console.log(this.AddStudentForm.controls['birthDate'].value);
-
-
     if (
       this.firstNameValid &&
       this.lastNameValid &&
@@ -72,10 +69,8 @@ export class CreateStudentDialogComponent {
         gender: this.AddStudentForm.controls['gender'].value,
         country: this.AddStudentForm.controls['country'].value,
       };
-      console.log(this.student);
 
       this.studentsService.createStudent(this.student).subscribe((date) => {
-        console.log(date);
         this.dialog.close();
         Swal.fire({
           icon: 'success',

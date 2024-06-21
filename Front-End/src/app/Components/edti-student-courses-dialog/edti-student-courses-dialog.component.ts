@@ -23,6 +23,8 @@ export class EdtiStudentCoursesDialogComponent implements OnInit {
   students: any;
   courses: any;
   assignCourseForm: any;
+  courseValid: boolean = true;
+  studentValid: boolean = true;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogref: MatDialogRef<any>, private courseService: CoursesService, private gradeService: GradesService, private studentService: StudentsService) {
 
@@ -60,18 +62,30 @@ export class EdtiStudentCoursesDialogComponent implements OnInit {
       grade: grade
     };
 
-    this.gradeService.createGrade(courseData).subscribe((data) => {
-      this.dialogref.close();
+    this.courseValid = this.assignCourseForm.controls['course'].valid;
+    this.studentValid = this.assignCourseForm.controls['student'].valid;
+
+
+    if (this.courseValid && this.studentValid) {
+      this.gradeService.createGrade(courseData).subscribe((data) => {
+        this.dialogref.close();
+        Swal.fire({
+          icon: 'success',
+          title: 'Course Added Successfully',
+          showConfirmButton: true,
+        })
+      }), (error: any) => {
+        console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'An error occurred',
+          showConfirmButton: true,
+        })
+      }
+    } else {
       Swal.fire({
-        icon: 'success',
-        title: 'Course Added Successfully',
-        showConfirmButton: true,
-      })
-    }), (error: any) => {
-      console.log(error);
-      Swal.fire({
-        icon: 'error',
-        title: 'An error occurred',
+        icon: 'warning',
+        title: 'Make sure to fill all the fields',
         showConfirmButton: true,
       })
     }
